@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorGray"
+    tools:context="edu.feicui.com.houserkeeper.ui.SoftMgrActivity">
+    <include layout="@layout/layout_toolbar"/>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机内置空间"
+            />
+        <ProgressBar
+            android:id="@+id/pb_phone_internal_space"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="1024"
+            android:progress="500"
+            android:indeterminate="false" />
+        <TextView
+            android:id="@+id/tv_internal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100M/1000M"
+            android:layout_gravity="right"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机外置存储空间"
+            />
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="512"
+            android:progress="200"
+            android:indeterminate="false"
+            android:id="@+id/pb_phone_extral_space" />
+        <TextView
+            android:id="@+id/tv_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100M/1000M"
+            android:layout_gravity="right"
+            />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MainButton"
+               android:text="所有软件"
+                android:gravity="left|center_vertical"
+                android:id="@+id/btn_all_soft"
+                android:drawableRight="@mipmap/ic_launcher"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MainButton"
+                android:text="用户软件"
+                android:gravity="left|center_vertical"
+                android:id="@+id/btn_user_soft"
+                android:drawableRight="@mipmap/ic_launcher"
+                />
+            <Button
+                android:id="@+id/btn_sys_soft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MainButton"
+                android:text="系统软件"
+                android:gravity="left|center_vertical"
+                android:drawableRight="@mipmap/ic_launcher"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

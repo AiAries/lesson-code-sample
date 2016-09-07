@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Camera2Basic/Camera2Basic.iml" filepath="$PROJECT_DIR$/Camera2Basic/Camera2Basic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CircularReveal-master/CircularReveal-master.iml" filepath="$PROJECT_DIR$/CircularReveal-master/CircularReveal-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activity_manager_demo/activity_manager_demo.iml" filepath="$PROJECT_DIR$/activity_manager_demo/activity_manager_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app1607/app1607.iml" filepath="$PROJECT_DIR$/app1607/app1607.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app_login/app_login.iml" filepath="$PROJECT_DIR$/app_login/app_login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app_material_design/app_material_design.iml" filepath="$PROJECT_DIR$/app_material_design/app_material_design.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app_news/app_news.iml" filepath="$PROJECT_DIR$/app_news/app_news.iml" />
+      <module fileurl="file://$PROJECT_DIR$/broadcast_receiver/broadcast_receiver.iml" filepath="$PROJECT_DIR$/broadcast_receiver/broadcast_receiver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cachebitmap/cachebitmap.iml" filepath="$PROJECT_DIR$/cachebitmap/cachebitmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/callback_demo/callback_demo.iml" filepath="$PROJECT_DIR$/callback_demo/callback_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/circualreveal/circualreveal.iml" filepath="$PROJECT_DIR$/circualreveal/circualreveal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common_dialog/common_dialog.iml" filepath="$PROJECT_DIR$/common_dialog/common_dialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commonview/commonview.iml" filepath="$PROJECT_DIR$/commonview/commonview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/frameanim/frameanim.iml" filepath="$PROJECT_DIR$/frameanim/frameanim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/getrunningapp/getrunningapp.iml" filepath="$PROJECT_DIR$/getrunningapp/getrunningapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intentjump_senddata/intentjump_senddata.iml" filepath="$PROJECT_DIR$/intentjump_senddata/intentjump_senddata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson-code-sample.iml" filepath="$PROJECT_DIR$/lesson-code-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mdedia_player_and_service/mdedia_player_and_service.iml" filepath="$PROJECT_DIR$/mdedia_player_and_service/mdedia_player_and_service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mediaplayer_and_service/mediaplayer_and_service.iml" filepath="$PROJECT_DIR$/mediaplayer_and_service/mediaplayer_and_service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/notificationdemo/notificationdemo.iml" filepath="$PROJECT_DIR$/notificationdemo/notificationdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp_demo/okhttp_demo.iml" filepath="$PROJECT_DIR$/okhttp_demo/okhttp_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/package_manager_demo/package_manager_demo.iml" filepath="$PROJECT_DIR$/package_manager_demo/package_manager_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pie_chart/pie_chart.iml" filepath="$PROJECT_DIR$/pie_chart/pie_chart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/readdbdata/readdbdata.iml" filepath="$PROJECT_DIR$/readdbdata/readdbdata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui_thread_and_subthread/ui_thread_and_subthread.iml" filepath="$PROJECT_DIR$/ui_thread_and_subthread/ui_thread_and_subthread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewanimationdemo/viewanimationdemo.iml" filepath="$PROJECT_DIR$/viewanimationdemo/viewanimationdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewpage_fragment/viewpage_fragment.iml" filepath="$PROJECT_DIR$/viewpage_fragment/viewpage_fragment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewpage_tablayout/viewpage_tablayout.iml" filepath="$PROJECT_DIR$/viewpage_tablayout/viewpage_tablayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewpagerdemo/viewpagerdemo.iml" filepath="$PROJECT_DIR$/viewpagerdemo/viewpagerdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webView/webView.iml" filepath="$PROJECT_DIR$/webView/webView.iml" />
+    </modules>
+  </component>
+</project>

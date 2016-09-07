@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FirstApp</string>
+    <!--h5-->
+    <string name="tip">任何View都必须添加这两个属性layout_width和layout_height</string>
+    <string name="jump">跳转</string>
+    <string name="iv_description">海南海边风景</string>
+    <string-array name="simple_adapter">
+        <item>jack is a boy</item>
+        <item>rose is a girl</item>
+    </string-array>
+</resources>

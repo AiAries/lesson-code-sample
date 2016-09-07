@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MediaPlayer_And_Service</string>
+    <string name="local_service_started">服务开启</string>
+    <string name="local_service_stopped">服务停止</string>
+</resources>

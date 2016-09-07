@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>超级链接的用法</title>
+</head>
+<body>
+<form>
+ <table>
+ 	 <tr>
+        <td class="a_r"><label for="lname">姓氏：</label></td>
+        <td><input name="lname" id="lname" type="text" /></td>
+      </tr>
+      <tr>
+				<td class="a_r" ><label for="sname">登录名：</label></td>
+        <td><input name="sname" id="sname" type="text" />（可包含 a-z、0-9 和下划线）</td>
+      </tr>
+      <tr>
+        <td class="a_r"><label for="pass">密码：</label></td>
+        <td><input name="pass" id="pass" type="password" />（至少包含 6 个字符）</td>
+      </tr>
+      <tr>
+        <td class="a_r"><label for="rpass">再次输入密码：</label></td>
+        <td><input name="rpass" id="rpass" type="password" /></td>
+      </tr>
+      <tr>
+        <td class="a_r" width="120px" height="60px"><label for="email">电子邮箱：</label></td>
+        <td><input name="email" id="email" type="text" />（必须包含 @  字符）</td>
+      </tr>
+      <tr>
+        <td class="a_r"><label for="gender">性别：</label></td>
+				<td>
+					<input name="gender" id="gender" class="b0" type="radio" value="男" checked="checked" />
+    	    <img src="images/male.gif" alt="alt" />男&nbsp; 
+    	    <input name="gender" class="b0" type="radio" value="女" />
+    	    <img src="images/female.gif" alt="alt" />女
+
+        </td>
+      </tr>
+      <tr>
+        <td class="a_r">头像：</td>
+        <td><input type="file" /></td>
+      </tr>    
+      <tr>
+        <td class="a_r"><label for="hobby">爱好：</label></td>
+        <td>
+	   	  	<input class="b0" type="checkbox" name="hobby" id="hobby" value="checkbox" />&nbsp;运动&nbsp;&nbsp;
+  	  	  <input class="b0" type="checkbox" name="hobby2" value="checkbox" />&nbsp;聊天&nbsp;&nbsp;
+    			<input class="b0" type="checkbox" name="hobby3" value="checkbox" />&nbsp;玩游戏
+
+    		</td>
+      </tr>
+      <tr>
+        <td class="a_r"><label for="nYear">出生日期：</label></td>
+        <td>
+    		<input name="nYear" id="nYear" class="w40" value="yyyy" maxlength="4" />&nbsp;年&nbsp;&nbsp;
+    	   <select name="nMonth">
+    		   <option value="" selected="selected">[选择月份]</option>
+    	     <option value="0">一月</option>
+    	     <option value="1">二月</option>
+    	     <option value="2">三月</option>
+    	     <option value="3">四月</option>
+    	     <option value="4">五月</option>
+    	     <option value="5">六月</option>
+    	     <option value="6">七月</option>
+    	     <option value="7">八月</option>
+    	     <option value="8">九月</option>
+    	     <option value="9">十月</option>
+    	     <option value="10">十一月</option>
+    	     <option value="11">十二月</option>
+    	   </select>
+    	  <input name="nDay" value="dd" class="w20" maxlength="2" />日
+
+    	</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="pl150"><input type="image" name="submit" class="b0" src="images/submit.gif" /><img src="images/reset.gif" class="hand" alt="重置" /></td>
+      </tr>
+ </table>
+</form>
+</body>
+</body>
+</html>

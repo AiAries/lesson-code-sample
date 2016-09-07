@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    tools:context="com.feicui.edu.firstapp.MainActivity">
+    <!--xmlns: xml namespace -->
+
+    <!--任何View都必须添加这两个属性layout_width和layout_height-->
+
+    <!--线性布局默认是水平方向,通过属性orientation来改变-->
+
+    <!--View的id属性，当view需要被控制的时候（改变本文的内容，给按钮设置点击事件，改变图片）
+    ，绝大部分须添加这个属性-->
+    <!--gravity属性 让内部的控件或者内容居中 layout-gravity属性，相对所在容器的重心-->
+    <Button
+        android:layout_gravity="left"
+        android:gravity="center"
+        android:padding="30dp"
+        android:id="@+id/jump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jump" />
+
+    <!--1通过反射的方式-->
+    <Button
+        android:onClick="jump"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/jump"
+        android:gravity="center"
+        android:visibility="visible" />
+
+    <TextView
+        android:minLines="5"
+        android:maxLines="10"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tip" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--textview显示文本数据，通过text属性来显示文本-->
+        <!--argb alpha ,red ,green,blue //rgb -->
+        <TextView
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:textColor="#09f115"
+            android:fontFamily="serif"
+            />
+        <!--显示图片的控件，通过src属性-->
+        <!--contentDescription 给盲人专用-->
+        <ImageView
+            android:layout_weight="12"
+            android:background="#da6262"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/iv_description" />
+    </LinearLayout>
+</LinearLayout>

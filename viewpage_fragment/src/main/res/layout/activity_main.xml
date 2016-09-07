@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.feicui.edu.viewpage_fragment.MainActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- <android.support.v4.view.PagerTitleStrip
+             android:layout_width="wrap_content"
+             android:layout_height="48dp"
+             android:background="@color/colorAccent"
+             >
+ 
+         </android.support.v4.view.PagerTitleStrip>-->
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pagerTabStrip"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary"
+            android:scrollbarSize="@dimen/activity_horizontal_margin"
+            android:tag="tag"
+            />
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:id="@+id/tv_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/adware_style_selected" />
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/adware_style_default" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/adware_style_default" />
+
+    </LinearLayout>
+</RelativeLayout>

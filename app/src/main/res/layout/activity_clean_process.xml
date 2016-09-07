@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.CleanProcessActivity">
+
+    <include layout="@layout/layout_toolbar" />
+    <TextView
+        android:paddingTop="16dp"
+        android:layout_gravity="center"
+        android:text="品牌"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_brand"
+        />
+    <TextView
+        android:id="@+id/tv_phone_type"
+        android:layout_gravity="center"
+        android:text="手机型号"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:layout_margin="8dp"
+        android:id="@+id/pb_phone_memory_use_rate"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1024"
+        android:progress="0"
+        android:indeterminate="false" />
+    <TextView
+        android:id="@+id/tv_memeory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100M/1000M"
+        android:layout_gravity="right"
+        />
+    <Button
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:text="一键清理"
+        android:id="@+id/btn_clean_process"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        >
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@anim/my_rotate"
+            android:indeterminateDuration="500"
+            android:indeterminateOnly="true"
+            android:indeterminateBehavior="cycle"
+            />
+        <ListView
+            android:id="@+id/listview_process"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </FrameLayout>
+    <LinearLayout
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_show_process"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/speedup_show_sysapp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

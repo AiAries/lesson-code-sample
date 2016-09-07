@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Camera2Basic" />
+            <option value="$PROJECT_DIR$/CircularReveal-master" />
+            <option value="$PROJECT_DIR$/activity_manager_demo" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app1607" />
+            <option value="$PROJECT_DIR$/app_login" />
+            <option value="$PROJECT_DIR$/app_material_design" />
+            <option value="$PROJECT_DIR$/app_news" />
+            <option value="$PROJECT_DIR$/broadcast_receiver" />
+            <option value="$PROJECT_DIR$/cachebitmap" />
+            <option value="$PROJECT_DIR$/callback_demo" />
+            <option value="$PROJECT_DIR$/circualreveal" />
+            <option value="$PROJECT_DIR$/common_dialog" />
+            <option value="$PROJECT_DIR$/commonview" />
+            <option value="$PROJECT_DIR$/frameanim" />
+            <option value="$PROJECT_DIR$/getrunningapp" />
+            <option value="$PROJECT_DIR$/intentjump_senddata" />
+            <option value="$PROJECT_DIR$/mdedia_player_and_service" />
+            <option value="$PROJECT_DIR$/mediaplayer_and_service" />
+            <option value="$PROJECT_DIR$/notificationdemo" />
+            <option value="$PROJECT_DIR$/okhttp_demo" />
+            <option value="$PROJECT_DIR$/package_manager_demo" />
+            <option value="$PROJECT_DIR$/pie_chart" />
+            <option value="$PROJECT_DIR$/readdbdata" />
+            <option value="$PROJECT_DIR$/ui_thread_and_subthread" />
+            <option value="$PROJECT_DIR$/viewanimationdemo" />
+            <option value="$PROJECT_DIR$/viewpage_fragment" />
+            <option value="$PROJECT_DIR$/viewpage_tablayout" />
+            <option value="$PROJECT_DIR$/viewpagerdemo" />
+            <option value="$PROJECT_DIR$/webView" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Camera2Basic" />
+            <option value="$PROJECT_DIR$/CircularReveal-master" />
+            <option value="$PROJECT_DIR$/activity_manager_demo" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app1607" />
+            <option value="$PROJECT_DIR$/app_login" />
+            <option value="$PROJECT_DIR$/app_material_design" />
+            <option value="$PROJECT_DIR$/app_news" />
+            <option value="$PROJECT_DIR$/broadcast_receiver" />
+            <option value="$PROJECT_DIR$/cachebitmap" />
+            <option value="$PROJECT_DIR$/callback_demo" />
+            <option value="$PROJECT_DIR$/circualreveal" />
+            <option value="$PROJECT_DIR$/common_dialog" />
+            <option value="$PROJECT_DIR$/commonview" />
+            <option value="$PROJECT_DIR$/frameanim" />
+            <option value="$PROJECT_DIR$/getrunningapp" />
+            <option value="$PROJECT_DIR$/intentjump_senddata" />
+            <option value="$PROJECT_DIR$/mdedia_player_and_service" />
+            <option value="$PROJECT_DIR$/mediaplayer_and_service" />
+            <option value="$PROJECT_DIR$/notificationdemo" />
+            <option value="$PROJECT_DIR$/okhttp_demo" />
+            <option value="$PROJECT_DIR$/package_manager_demo" />
+            <option value="$PROJECT_DIR$/pie_chart" />
+            <option value="$PROJECT_DIR$/readdbdata" />
+            <option value="$PROJECT_DIR$/ui_thread_and_subthread" />
+            <option value="$PROJECT_DIR$/viewanimationdemo" />
+            <option value="$PROJECT_DIR$/viewpage_fragment" />
+            <option value="$PROJECT_DIR$/viewpage_tablayout" />
+            <option value="$PROJECT_DIR$/viewpagerdemo" />
+            <option value="$PROJECT_DIR$/webView" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
