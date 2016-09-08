@@ -156,7 +156,6 @@ public class TabAnimationActivity extends AppCompatActivity {
 
             final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.dummyfrag_bg);
             frameLayout.setBackgroundColor(color);
-
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.dummyfrag_scrollableview);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
