@@ -16,8 +16,6 @@ import edu.feicui.com.houserkeeper.ui.IntroduceActivity;
 public class IntroduceFragment  extends Fragment{
     //fragment是一个轻量级的activity
     //它的生命周期跟使用它的activity的界面相关联
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -25,11 +25,11 @@ public class NavDrawerActivity extends AppCompatActivity {
 
     private static final String PREFERENCES_FILE = "mymaterialapp_settings";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+    private boolean mUserLearnedDrawer;
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
-    private boolean mUserLearnedDrawer;
-    private boolean mFromSavedInstanceState;
     private int mCurrentSelectedPosition;
+    private boolean mFromSavedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
