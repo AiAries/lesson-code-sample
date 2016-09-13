@@ -1,6 +1,7 @@
 package com.feicui.edu.highpart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
+        mNavigationView.getHeaderView(0)
+       .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到登入界面
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            }
+        });
+
 
         final NewsGroupFragment fragment = new NewsGroupFragment();
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
