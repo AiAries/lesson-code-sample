@@ -43,7 +43,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
     @Override
     public int getItemCount() {
-        return newses.size();
+        return newses==null?0:newses.size();
     }
 
     @Override
@@ -60,6 +60,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
                 context.startActivity(intent);
             }
         });
+        //异步下载网络图片
         Glide.with(context)
                 .load(iconPath)
                 .centerCrop()
@@ -80,6 +81,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 //
 //            @Override
 //            public void onFailed(Bitmap bitmap) {
+//        holder.imageView.setImageBitmap(bitmap);
 //                Toast.makeText(context, "下载图片失败", Toast.LENGTH_SHORT).show();
 //                task.cancel(true);
 //            }

@@ -2,7 +2,7 @@
 <resources>
 
     <style name="MyTheme" parent="Base.MyTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
     </style>
 
     <style name="MyTheme.Detail" parent="MyTheme">

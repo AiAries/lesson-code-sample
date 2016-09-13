@@ -65,8 +65,8 @@ public class News {
     }
 
     private String icon;
-  private String link;
-  private String stamp;
-  private String title;
-  private int type;
+    private String link;
+    private String stamp;
+    private String title;
+    private int type;
 }

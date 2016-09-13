@@ -54,7 +54,7 @@ public class HttpAsyncTask extends AsyncTask<String,Integer,String>{
         if (s == null) {
             //从服务下载数据失败,状态消息
             if (listener != null) {
-                listener.onFailed("301，数据不存在");
+                listener.onFailed("网络异常...");
             }
         } else {
             //从服务器下载成功

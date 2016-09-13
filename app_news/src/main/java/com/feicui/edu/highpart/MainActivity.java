@@ -11,18 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Xml;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.feicui.edu.highpart.bean.NewsGroup;
 import com.feicui.edu.highpart.fragment.CommentFragment;
 import com.feicui.edu.highpart.fragment.FavoriteFragment;
 import com.feicui.edu.highpart.fragment.LocalFragment;
-import com.feicui.edu.highpart.fragment.NewsFragment;
+import com.feicui.edu.highpart.fragment.NewsGroupFragment;
 import com.feicui.edu.highpart.fragment.PicFragment;
 import com.feicui.edu.highpart.util.HttpUtil;
 import com.google.gson.Gson;
@@ -40,36 +37,23 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-    public TextView textView;
-    //    private ListView listView;
-//    private ListViewAdapter adapter;
-    private int startIndex;
-    private int endIndex;
+
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
-    private Toolbar toolbar;
 
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String PREFERENCES_FILE = "mymaterialapp_settings";
     private boolean mUserLearnedDrawer;
-
-//    public void changetext(View view) {
-//        textView.setText("MainActivity");
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-//        textView = (TextView) findViewById(R.id.tv);
-
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        setUpNavDrawer();
 
+        final NewsGroupFragment fragment = new NewsGroupFragment();
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -77,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_item_1:
                         getSupportFragmentManager().beginTransaction().
-                                replace(R.id.container, new NewsFragment()).commit();
+                            replace(R.id.container, fragment).commit();
                         break;
                     case R.id.navigation_item_2:
                         getSupportFragmentManager().beginTransaction().
@@ -105,82 +89,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getSupportFragmentManager().beginTransaction().
-                add(R.id.container, new NewsFragment()).commit();
-//        // listview
-//        listView = (ListView) findViewById(R.id.lv);
-//        adapter = new ListViewAdapter(newses,this);
-//
-//        listView.setAdapter(adapter);
-//        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                switch (scrollState) {
-//                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-//                        //正在滚动中，禁止加载图片
-//                        adapter.loadImage.lock();
-//                        break;
-//                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE: //停止滚动
-//                        adapter.loadImage.unLock(); //解锁，允许请求图片
-//                        //遍历当前起始到结束下标，请求图片
-//                        for (; startIndex < endIndex; startIndex++) {
-//                            final ImageView iv = (ImageView) listView.findViewWithTag(startIndex);
-//                            News news = (News) adapter.getItem(startIndex);
-//                            adapter.loadImage.getBitmap(
-//                                new LoadImage.ImageLoadListener() {
-//                                @Override
-//                                public void imageLoadOk(Bitmap bitmap, int position) {
-//                                    iv.setImageBitmap(bitmap);
-//                                }
-//                            },
-//                            startIndex,
-//                            news.getLink()//图片的链接地址
-//                            );
-////                            loadImage.getBitmap(listener, startIndex, list[startIndex]);
-//                        }
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//                //记录加载的数据的区间,开始位置，和结束位置
-//                startIndex = firstVisibleItem;
-//                endIndex = firstVisibleItem+visibleItemCount;
-//                if (startIndex >= totalItemCount) {
-//                    endIndex = totalItemCount - 1;
-//                }
-//
-//            }
-//        });
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-//                News news = (News) parent.getItemAtPosition(position);
-//                intent.putExtra("url", news.getLink());
-//                startActivity(intent);
-//            }
-//        });
+                add(R.id.container, fragment).commit();
 
-
-//       textView.post(new Runnable() {
-//           //runnable 还是在主线汇总运行的
-//           @Override
-//           public void run() {
-//               parseNewsGroupJsonString();
-//           }
-//       });
-//        new Thread(){
-//            @Override
-//            public void run() {
-//                super.run();
-//                parseNewsGroupJsonString();
-//            }
-//        }.start();
-//         okhttpAsyncLoad();
     }
 
-    private void setUpNavDrawer() {
+    public void setUpNavDrawer(Toolbar toolbar) {
         if (toolbar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationIcon(R.mipmap.ic_drawer);
@@ -201,12 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = new MenuInflater(this);
-        inflater.inflate(R.menu.menu_refresh, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+
     public static void saveSharedSetting(Context ctx, String settingName, String settingValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -217,35 +125,6 @@ public class MainActivity extends AppCompatActivity {
     public static String readSharedSetting(Context ctx, String settingName, String defaultValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         return sharedPref.getString(settingName, defaultValue);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-//        int itemId = item.getItemId();
-//        if (itemId==R.id.menu_refresh) {
-//            //调用刷新功能
-//            refreshLayout.setRefreshing(true);
-//            new Thread(){
-//                @Override
-//                public void run() {
-//                    super.run();
-//                    try {
-//                        //模拟后台下载
-//                        Thread.sleep(3000);
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                refreshLayout.setRefreshing(false);
-//                            }
-//                        });
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }.start();
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void okhttpAsyncLoad() {
