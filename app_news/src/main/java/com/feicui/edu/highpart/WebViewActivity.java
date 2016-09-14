@@ -16,16 +16,16 @@ public class WebViewActivity extends AppCompatActivity {
 
         //设置一些webview的属性
         wbv.getSettings().setJavaScriptEnabled(true);
-
+//        wbv.getSettings().setBuiltInZoomControls(true);
         Intent intent = getIntent();
         if (intent != null) {
-            String url = intent.getStringExtra("url");
-//            final String url1 = "http://m.baidu.com/";
+//            News news = (News) intent.getSerializableExtra("url");
+             String url = intent.getStringExtra("url");
             //设置webview的客户端,
             wbv.setWebViewClient(new WebViewClient(){
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    return false/*!url.equals(url1)*/;
+                    return false;
                 }
             });
             wbv.loadUrl(url);

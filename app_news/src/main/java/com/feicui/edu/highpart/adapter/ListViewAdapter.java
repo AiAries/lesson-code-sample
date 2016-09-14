@@ -1,4 +1,4 @@
-package com.feicui.edu.highpart;
+package com.feicui.edu.highpart.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.asyntask.LoadCallbackListener;
 import com.feicui.edu.highpart.asyntask.LoadImage;
 import com.feicui.edu.highpart.asyntask.LoadImgAsyncTask;

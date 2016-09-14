@@ -1,9 +1,11 @@
 package com.feicui.edu.highpart.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/9/2 0002.
  */
-public class News {
+public class News implements Serializable{
   private String summary;
   private int nid;
 

@@ -14,12 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.feicui.edu.highpart.MyRecycleViewAdapter;
+import com.feicui.edu.highpart.adapter.MyRecycleViewAdapter;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.asyntask.HttpAsyncTask;
 import com.feicui.edu.highpart.asyntask.LoadCallbackListener;
 import com.feicui.edu.highpart.bean.News;
-import com.feicui.edu.highpart.util.Const;
 import com.feicui.edu.highpart.util.GsonParseUtil;
 
 import java.util.ArrayList;
@@ -36,7 +35,8 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private FragmentActivity activity;
     private View container_progress;
     private View container_failed;
-    String url = Const.URL+"news_list?ver=1&subid=1&dir=1&nid=1&stamp=20140321&cnt=20";
+    String url = "";
+    private View container_no_news;
 
     @Nullable
     @Override
@@ -45,6 +45,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         container_progress = view.findViewById(R.id.container_progress);
         container_failed = view.findViewById(R.id.container_failed);
+        container_no_news = view.findViewById(R.id.container_no_news);
         TextView tv_load = (TextView) view.findViewById(R.id.tv_load);
         tv_load.setOnClickListener(
                 new View.OnClickListener() {
@@ -79,12 +80,15 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         adapter = new MyRecycleViewAdapter(newses, getContext());
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rv.setAdapter(adapter);
-        activity = getActivity();
-        myAsyncLoad(url);
-
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        activity = getActivity();
+
+    }
 
     //自己写的框架
     public void myAsyncLoad(String url) {
@@ -96,15 +100,15 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onSuccess(String s) {
                 ArrayList<News> newses = GsonParseUtil.parseNewJsonString(s);
-                Toast.makeText(activity, "成功", Toast.LENGTH_SHORT).show();
+                //当没有新闻时，显示没有新闻的提示背景
+                if (newses == null || newses.size() == 0) {
+                    container_no_news.setVisibility(View.VISIBLE);
+                } else {
+                    container_no_news.setVisibility(View.GONE);
+                }
                 adapter.setNewses(newses);
                 adapter.notifyDataSetChanged();
-                try {
-                    Thread.sleep(500);
-                    container_progress.setVisibility(View.GONE);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                container_progress.setVisibility(View.GONE);
             }
 
             @Override

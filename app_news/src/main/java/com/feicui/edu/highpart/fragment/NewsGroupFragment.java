@@ -23,12 +23,15 @@ import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.NewsGroup;
 import com.feicui.edu.highpart.util.Const;
 import com.feicui.edu.highpart.util.HttpUtil;
+import com.feicui.edu.highpart.util.UrlParameterUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/9/9 0009.
@@ -70,6 +73,10 @@ public class NewsGroupFragment extends Fragment {
 
                         //把tablayout和viewpager进行绑定
                         tab.setupWithViewPager(vp);
+                        //默认给第一个fragment加载数据，
+                        NewsFragment fragment = (NewsFragment) adapter.mFragmentList.get(0);
+                        String url = Const.URL_NEW_LIST+"ver=1&subid="+subids.get(0) +"&dir=1&nid=1&stamp=20140321&cnt=20";
+                        fragment.myAsyncLoad(url);
                         //处理tablayout点击事件
                         tab.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vp){
                             @Override
@@ -80,7 +87,15 @@ public class NewsGroupFragment extends Fragment {
                                 //让选中的fragment加载新闻数据
                                 int position = tab.getPosition();
                                 NewsFragment fragment = (NewsFragment) adapter.mFragmentList.get(position);
-                                String url = Const.URL+"news_list?ver=1&subid="+subids.get(position) +"&dir=1&nid=1&stamp=20140321&cnt=20";
+//                              "ver=1&subid="+subids.get(position) +"&dir=1&nid=1&stamp=20140321&cnt=20"
+                                Map<String, String> map = new HashMap<String, String>();
+                                map.put("ver", "1");
+                                map.put("subid", subids.get(position)+"");
+                                map.put("dir", "1");
+                                map.put("nid", "1");
+                                map.put("stamp", "20140321");
+                                map.put("cnt", "20");
+                                String url = Const.URL_NEW_LIST+ UrlParameterUtil.parameter(map);
                                 fragment.myAsyncLoad(url);
                             }
                         });
