@@ -1,15 +1,10 @@
-package com.feicui.edu.highpart.okhttp;
+package com.feicui.edu.highpart.common;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import okhttp3.*;
 
 import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * Created by Administrator on 2016/9/3 0003.
@@ -22,7 +17,7 @@ public class OkHttpUtil {
      * @param url 数据的url路径
      * @return  获取成功返回字符串内容，失败返回null
      */
-    public static String getJsonString(String url)
+    public static String getString(String url)
     {
         ResponseBody responseBody = getResponseBody(url);
         try {

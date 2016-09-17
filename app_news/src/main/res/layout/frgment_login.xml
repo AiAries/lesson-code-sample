@@ -9,24 +9,46 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.feicui.edu.highpart.LoginActivity">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="用户名："
+            android:id="@+id/textView"
+            android:layout_toLeftOf="@+id/et_pwd"
+            android:layout_alignBaseline="@+id/et_username"
+            />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="密码："
+            android:id="@+id/textView3"
+            android:layout_toLeftOf="@+id/et_username"
+            android:layout_alignBaseline="@+id/et_pwd"
+           />
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_username"
+            android:layout_alignParentTop="true"
+            android:hint="please input username"
+            android:layout_toRightOf="@+id/register"
+            android:layout_toEndOf="@+id/register"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/et_pwd"
+            android:layout_below="@+id/et_username"
+            android:hint="please input password"
+            android:layout_toRightOf="@+id/register"
+            android:layout_toEndOf="@+id/register"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -34,7 +56,7 @@
         android:text="注册"
         android:id="@+id/register"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/et_pwd"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -48,11 +70,15 @@
         android:layout_toEndOf="@+id/register" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登入"
-        android:id="@+id/login"
-        android:layout_alignBottom="@+id/forgetPwd"
-        android:layout_toRightOf="@+id/forgetPwd"
-        android:layout_toEndOf="@+id/forgetPwd" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登入"
+            android:id="@+id/login"
+            android:layout_alignTop="@+id/forgetPwd"
+            android:layout_alignRight="@+id/et_pwd"
+            android:layout_alignEnd="@+id/et_pwd"
+            android:layout_toRightOf="@+id/forgetPwd"
+            />
+
+
 </RelativeLayout>

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.util.Log;
 
-import com.feicui.edu.highpart.util.HttpUtil;
+import com.feicui.edu.highpart.asyntask.HttpUtil;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

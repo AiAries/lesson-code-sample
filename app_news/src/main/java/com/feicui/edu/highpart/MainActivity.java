@@ -22,7 +22,7 @@ import com.feicui.edu.highpart.fragment.FavoriteFragment;
 import com.feicui.edu.highpart.fragment.LocalFragment;
 import com.feicui.edu.highpart.fragment.NewsGroupFragment;
 import com.feicui.edu.highpart.fragment.PicFragment;
-import com.feicui.edu.highpart.util.HttpUtil;
+import com.feicui.edu.highpart.asyntask.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -135,29 +135,6 @@ public class MainActivity extends AppCompatActivity {
     public static String readSharedSetting(Context ctx, String settingName, String defaultValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         return sharedPref.getString(settingName, defaultValue);
-    }
-
-    private void okhttpAsyncLoad() {
-//        OkHttpClient client = new OkHttpClient();
-//        Request request = new Request.Builder()
-//                .url(url)
-//                /*.cacheControl(CacheControl.FORCE_CACHE)//为什么加缓存就出不来*/
-//                .build();
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                String string = response.body().string();
-//                Log.d(TAG, "onResponse: " + string);
-//                ArrayList<News> newses = GsonParseUtil.parseNewJsonString(string);
-//                adapter.setNewses(newses);
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
     }
 
     public void pullParseAssetXmlFile() {

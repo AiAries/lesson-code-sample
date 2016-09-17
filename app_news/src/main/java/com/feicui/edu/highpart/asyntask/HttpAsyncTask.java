@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.feicui.edu.highpart.util.HttpUtil;
-
 /**
  * Created by Administrator on 2016/9/1 0001.
  */

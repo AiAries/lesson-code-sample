@@ -21,9 +21,9 @@ import android.widget.Toast;
 import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.NewsGroup;
-import com.feicui.edu.highpart.util.Const;
-import com.feicui.edu.highpart.util.HttpUtil;
-import com.feicui.edu.highpart.util.UrlParameterUtil;
+import com.feicui.edu.highpart.common.Const;
+import com.feicui.edu.highpart.asyntask.HttpUtil;
+import com.feicui.edu.highpart.common.UrlComposeUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -95,7 +95,7 @@ public class NewsGroupFragment extends Fragment {
                                 map.put("nid", "1");
                                 map.put("stamp", "20140321");
                                 map.put("cnt", "20");
-                                String url = Const.URL_NEW_LIST+ UrlParameterUtil.parameter(map);
+                                String url = UrlComposeUtil.getUrlPath( Const.URL_NEW_LIST,map);
                                 fragment.myAsyncLoad(url);
                             }
                         });

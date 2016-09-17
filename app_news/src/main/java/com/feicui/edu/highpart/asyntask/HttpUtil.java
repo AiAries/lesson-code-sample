@@ -1,4 +1,4 @@
-package com.feicui.edu.highpart.util;
+package com.feicui.edu.highpart.asyntask;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,24 +40,24 @@ public class HttpUtil {
                 while ((i = bis.read()) !=-1) {
                     baos.write(i);
                 }
-                Log.d(TAG, "getJsonString: "+baos.toString());
+                Log.d(TAG, "getString: "+baos.toString());
                 return baos.toString();
             } else {
                 //正常开发，需要分别判断code
-                Log.d(TAG, "getJsonString: "+responseCode);
+                Log.d(TAG, "getString: "+responseCode);
             }
         } catch (MalformedURLException e) {
-            Log.d(TAG, "getJsonString: 传入的urlPath有问题"+e.toString());
+            Log.d(TAG, "getString: 传入的urlPath有问题"+e.toString());
             //url 有问题，请仔细检查
         } catch (IOException e) {
-            Log.d(TAG, "getJsonString: 数据读取失败"+e.toString());
+            Log.d(TAG, "getString: 数据读取失败"+e.toString());
         }
         finally {
             if (bis != null) {
                 try {
                     bis.close();
                 } catch (IOException e) {
-                    Log.d(TAG, "getJsonString: 关流失败"+e.toString());
+                    Log.d(TAG, "getString: 关流失败"+e.toString());
                 }
             }
             if (baos != null) {
@@ -65,7 +65,7 @@ public class HttpUtil {
                     baos.close();
                 } catch (IOException e) {
                     //关流失败
-                    Log.d(TAG, "getJsonString: 关流失败"+e.toString());
+                    Log.d(TAG, "getString: 关流失败"+e.toString());
                 }
             }
         }
