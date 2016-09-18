@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="密码："
+            android:text="密    码："
             android:id="@+id/textView3"
             android:layout_toLeftOf="@+id/et_username"
             android:layout_alignBaseline="@+id/et_pwd"
