@@ -1,15 +1,17 @@
 package com.feicui.edu.highpart.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.BaseEntity;
 import com.feicui.edu.highpart.bean.Register;
@@ -29,37 +31,65 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/13 0013.
  */
-public class RegisterFragment extends Fragment
+public class RegisterFragment extends DialogFragment
 {
 
     private static final String TAG = "RegisterFragment";
     private Context context;
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
-        View view = inflater.inflate(R.layout.frgment_resgister, null);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frgment_resgister, null);
         final EditText et_username = (EditText) view.findViewById(R.id.et_username);
         final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         final EditText et_email = (EditText) view.findViewById(R.id.et_email);
         context = getContext();
         view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View v)
         {
-            //注册
-            register(
-                    et_username.getText().toString(),
-                    et_pwd.getText().toString(),
-                    et_email.getText().toString()
-            );
-        }
-    });
+            @Override
+            public void onClick(View v)
+            {
+                //注册
+                register(
+                        et_username.getText().toString(),
+                        et_pwd.getText().toString(),
+                        et_email.getText().toString()
+                );
+            }
+        });
+        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
 
-        return view;
+        //把xml文件渲染成一个view
+        builder.setView(view);
+        return builder.create();
     }
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+//    {
+//        View view = inflater.inflate(R.layout.frgment_resgister, null);
+//        final EditText et_username = (EditText) view.findViewById(R.id.et_username);
+//        final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
+//        final EditText et_email = (EditText) view.findViewById(R.id.et_email);
+//        context = getContext();
+//        view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener()
+//    {
+//        @Override
+//        public void onClick(View v)
+//        {
+//            //注册
+//            register(
+//                    et_username.getText().toString(),
+//                    et_pwd.getText().toString(),
+//                    et_email.getText().toString()
+//            );
+//        }
+//    });
+//
+//        return view;
+//    }
 
     private void register(String username, String pwd, String email)
     {

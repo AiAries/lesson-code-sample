@@ -16,7 +16,8 @@ public class WebViewActivity extends AppCompatActivity {
 
         //设置一些webview的属性
         wbv.getSettings().setJavaScriptEnabled(true);
-//        wbv.getSettings().setBuiltInZoomControls(true);
+        wbv.getSettings().setSupportZoom(true);
+        wbv.getSettings().setBuiltInZoomControls(true);
         Intent intent = getIntent();
         if (intent != null) {
 //            News news = (News) intent.getSerializableExtra("url");

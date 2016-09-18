@@ -25,8 +25,6 @@
         <activity
             android:name=".WebViewActivity"
             android:label="webView" />
-        <activity android:name=".TabLayoutViewPagerActivity" />
-        <activity android:name=".UseFragmentActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
     </application>
 

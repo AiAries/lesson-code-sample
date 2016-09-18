@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转到登入界面
+                mDrawerLayout.closeDrawer(mNavigationView);
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
             }
         });
