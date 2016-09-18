@@ -64,7 +64,6 @@ public class RegisterFragment extends Fragment
     private void register(String username, String pwd, String email)
     {
         //TODO 对用户名，密码，邮箱进行本地校验
-
         Map<String, String> p = new HashMap<>();
         // user_register?ver=版本号&uid=用户名&email=邮箱&pwd=登陆密码
         p.put("ver", CommonUtil.getVersionCode(context) + "");
