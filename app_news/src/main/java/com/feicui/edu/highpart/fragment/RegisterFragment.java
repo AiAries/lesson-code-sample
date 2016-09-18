@@ -42,21 +42,21 @@ public class RegisterFragment extends Fragment
         View view = inflater.inflate(R.layout.frgment_resgister, null);
         final EditText et_username = (EditText) view.findViewById(R.id.et_username);
         final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
-        final EditText et_email = (EditText) view.findViewById(R.id.et_pwd);
+        final EditText et_email = (EditText) view.findViewById(R.id.et_email);
         context = getContext();
         view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
         {
-            @Override
-            public void onClick(View v)
-            {
-                //注册
-                register(
-                        et_username.getText().toString(),
-                        et_pwd.getText().toString(),
-                        et_email.getText().toString()
-                );
-            }
-        });
+            //注册
+            register(
+                    et_username.getText().toString(),
+                    et_pwd.getText().toString(),
+                    et_email.getText().toString()
+            );
+        }
+    });
 
         return view;
     }
@@ -107,7 +107,7 @@ public class RegisterFragment extends Fragment
             {
                 if (registerInfo.getResult().equals("0"))
                 {
-                    //注册成功
+                    //注册成功,跳到用户信息界面
                 }
                 else
                 {

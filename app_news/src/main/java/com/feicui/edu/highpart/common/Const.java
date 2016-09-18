@@ -12,5 +12,7 @@ public class Const {
     public static final String URL_LOGIN = URL+"user_login?";
     //register
     public static final String URL_REGISTER = URL+"user_register?";
+    //forget pwd /user_forgetpass?ver=" + args[0] + "&email=" + args[1]
+    public static final String URL_FORGET_PWD = URL+"user_forgetpass?";
 
 }

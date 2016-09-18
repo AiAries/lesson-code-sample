@@ -16,13 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.feicui.edu.highpart.asyntask.HttpUtil;
 import com.feicui.edu.highpart.bean.NewsGroup;
 import com.feicui.edu.highpart.fragment.CommentFragment;
 import com.feicui.edu.highpart.fragment.FavoriteFragment;
 import com.feicui.edu.highpart.fragment.LocalFragment;
 import com.feicui.edu.highpart.fragment.NewsGroupFragment;
 import com.feicui.edu.highpart.fragment.PicFragment;
-import com.feicui.edu.highpart.asyntask.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        final NewsGroupFragment fragment = new NewsGroupFragment();
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_item_1:
                         getSupportFragmentManager().beginTransaction().
-                            replace(R.id.container, fragment).commit();
+                            replace(R.id.container, new NewsGroupFragment()).commit();
                         break;
                     case R.id.navigation_item_2:
                         getSupportFragmentManager().beginTransaction().
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getSupportFragmentManager().beginTransaction().
-                add(R.id.container, fragment).commit();
+                add(R.id.container, new NewsGroupFragment()).commit();
 
     }
 

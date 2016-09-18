@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.feicui.edu.highpart.LoginActivity">
+    tools:context="com.feicui.edu.highpart.LoginActivity"
+   >
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +59,8 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/et_pwd"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        style="@style/NormalButtonStyle" />
 
     <Button
         android:layout_width="wrap_content"
@@ -67,7 +69,10 @@
         android:id="@+id/forgetPwd"
         android:layout_alignTop="@+id/register"
         android:layout_toRightOf="@+id/register"
-        android:layout_toEndOf="@+id/register" />
+        android:layout_toEndOf="@+id/register"
+        style="@style/NormalButtonStyle"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
 
     <Button
             android:layout_width="wrap_content"
@@ -78,7 +83,7 @@
             android:layout_alignRight="@+id/et_pwd"
             android:layout_alignEnd="@+id/et_pwd"
             android:layout_toRightOf="@+id/forgetPwd"
-            />
+        style="@style/NormalButtonStyle" />
 
 
 </RelativeLayout>

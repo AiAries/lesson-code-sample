@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.BaseEntity;
 import com.feicui.edu.highpart.bean.Register;
@@ -30,26 +31,22 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/13 0013.
  */
-public class LoginFragment extends Fragment
-{
+public class LoginFragment extends Fragment {
 
     private Context context;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frgment_login, null);
         final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         final EditText et_username = (EditText) view.findViewById(R.id.et_username);
         context = getContext();
         view.findViewById(R.id.register).setOnClickListener(
 
-                new View.OnClickListener()
-                {
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.container_login, new RegisterFragment()).commit();
 
@@ -57,11 +54,9 @@ public class LoginFragment extends Fragment
                 });
         view.findViewById(R.id.login).setOnClickListener(
 
-                new View.OnClickListener()
-                {
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
                         //登入
                         String username = et_username.getText().toString();
                         String pwd = et_pwd.getText().toString();
@@ -71,11 +66,22 @@ public class LoginFragment extends Fragment
                         );
                     }
                 });
+        view.findViewById(R.id.forgetPwd).setOnClickListener(
+
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //忘记密码
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.container_login, new ForgetPwdFragment()).commit();
+
+                    }
+                });
         return view;
     }
 
-    private void login(String username, String pwd)
-    {
+
+    private void login(String username, String pwd) {
         Map<String, String> p = new HashMap<>();
         //TODO 对用户名，密码，邮箱进行本地校验
 //        * http://118.244.212.82:9094//newsClient/login?uid=admin&pwd=admin&
@@ -89,24 +95,17 @@ public class LoginFragment extends Fragment
         new LoginTask().execute(urlPath);
     }
 
-    class LoginTask extends AsyncTask<String, Void, String>
-    {
+    class LoginTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... params)
-        {
+        protected String doInBackground(String... params) {
             UserManager m = new UserManager();
-            try
-            {
+            try {
                 return m.register(params[0]);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(context, "服务器访问失败", Toast.LENGTH_SHORT).show();
-            }
-            catch (URLErrorException e)
-            {
+            } catch (URLErrorException e) {
                 e.printStackTrace();
                 Toast.makeText(context, "参数有误", Toast.LENGTH_SHORT).show();
             }
@@ -114,38 +113,29 @@ public class LoginFragment extends Fragment
         }
 
         @Override
-        protected void onPostExecute(String s)
-        {
+        protected void onPostExecute(String s) {
             super.onPostExecute(s);
             BaseEntity entity = parseUser(s);
             String status = entity.getStatus();
-            if ("0".equals(status))
-            {
+            if ("0".equals(status)) {
                 Register registerInfo = (Register) entity.getData();
 
-                if (registerInfo.getResult().equals("0"))
-                {
+                if (registerInfo.getResult().equals("0")) {
                     //登入成功
-                }
-                else
-                {
+                } else {
                     //失败
                 }
                 Toast.makeText(context, registerInfo.getExplain(), Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(context, entity.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
     }
 
-    public BaseEntity parseUser(String jsonString)
-    {
+    public BaseEntity parseUser(String jsonString) {
         Gson g = new Gson();
-        Type t = new TypeToken<BaseEntity<Register>>()
-        {
+        Type t = new TypeToken<BaseEntity<Register>>() {
         }.getType();
         return g.fromJson(jsonString, t);
     }

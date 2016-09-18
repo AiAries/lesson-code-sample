@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册"
+        style="@style/NormalButtonStyle"
         android:id="@+id/register"
         android:layout_below="@+id/et_pwd"
         android:layout_alignParentLeft="true"

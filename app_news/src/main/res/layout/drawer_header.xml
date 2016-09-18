@@ -3,16 +3,18 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="160dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:orientation="vertical">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_header"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:padding="@dimen/activity_vertical_margin"
         android:src="@mipmap/biz_pc_main_info_profile_avatar_bg_dark"
         app:civ_border_width="2dp"
+        android:background="@drawable/button_selector"
         android:layout_gravity="center"
         app:civ_border_color="@color/colorAccent"/>
 

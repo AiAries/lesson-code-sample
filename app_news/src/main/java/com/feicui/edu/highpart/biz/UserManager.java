@@ -29,6 +29,17 @@ public class UserManager
     {
         return requestNetByUrl(urlPath);
     }
+
+    /**
+     * 忘记密码
+     * @param urlPath
+     * @return
+     * @throws IOException
+     * @throws URLErrorException
+     */
+    public String forgetPwd(String urlPath) throws IOException, URLErrorException {
+        return requestNetByUrl(urlPath);
+    }
     private String requestNetByUrl(String urlPath) throws IOException, URLErrorException
     {
         if (URLUtil.isValidUrl(urlPath))
