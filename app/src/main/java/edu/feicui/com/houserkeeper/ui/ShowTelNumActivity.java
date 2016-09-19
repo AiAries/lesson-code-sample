@@ -25,8 +25,6 @@ public class ShowTelNumActivity extends ListActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         //获取上个界面传递过来的值
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

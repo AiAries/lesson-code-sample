@@ -1,13 +1,14 @@
 package com.feicui.edu.highpart.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,15 +31,19 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/18 0018.
  */
-public class ForgetPwdFragment extends Fragment {
+public class ForgetPwdFragment extends DialogFragment {
 
     private Context context;
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        context = getContext();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.fragment_forget_pwd, null);
+        builder.setView(view);
+
         final EditText et_email = (EditText) view.findViewById(R.id.et_email);
         context = getContext();
         view.findViewById(R.id.btn_find_pwd).setOnClickListener(
@@ -52,7 +57,7 @@ public class ForgetPwdFragment extends Fragment {
                     }
                 }
         );
-        return view;
+        return builder.create();
     }
 
     //找回密码

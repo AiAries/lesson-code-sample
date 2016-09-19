@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
        .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到登入界面
+                //跳转到登入界面，同时关闭抽屉mNavigationView
                 mDrawerLayout.closeDrawer(mNavigationView);
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
             }

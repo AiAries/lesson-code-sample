@@ -22,7 +22,7 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="?attr/actionBarSize"
         android:alpha="0.12"
-        android:background="@android:color/white" />
+        android:background="@android:color/black" />
 
     <FrameLayout
         android:layout_width="match_parent"

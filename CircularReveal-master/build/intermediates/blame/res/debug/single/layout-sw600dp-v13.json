@@ -2,13 +2,5 @@
     {
         "merged": "D:\\Android\\lesson-code-sample\\CircularReveal-master\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
         "source": "D:\\Android\\lesson-code-sample\\CircularReveal-master\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
-    },
-    {
-        "merged": "D:\\workspace\\HouserKeeper\\CircularReveal-master\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
-        "source": "D:\\workspace\\HouserKeeper\\CircularReveal-master\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
-    },
-    {
-        "merged": "S:\\AndroidSample\\lesson-code-sample\\CircularReveal-master\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
-        "source": "S:\\AndroidSample\\lesson-code-sample\\CircularReveal-master\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
     }
 ]

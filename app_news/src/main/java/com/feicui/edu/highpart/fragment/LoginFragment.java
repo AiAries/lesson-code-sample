@@ -47,6 +47,7 @@ public class LoginFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //让注册对话框显示出来
                         new RegisterFragment().show(getFragmentManager(),null);
 //                        getActivity().getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.container_login, new RegisterFragment()).commit();
@@ -73,8 +74,9 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //忘记密码
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container_login, new ForgetPwdFragment()).commit();
+                        new ForgetPwdFragment().show(getFragmentManager(),"");
+//                        getActivity().getSupportFragmentManager().beginTransaction()
+//                                .replace(R.id.container_login, new ForgetPwdFragment()).commit();
 
                     }
                 });
@@ -123,6 +125,9 @@ public class LoginFragment extends Fragment {
 
                 if (registerInfo.getResult().equals("0")) {
                     //登入成功
+                    getFragmentManager().beginTransaction().replace(R.id.container_login,
+                            new UserInfoFragment()
+                    ).commit();
                 } else {
                     //失败
                 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,25 +30,27 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/13 0013.
  */
-public class RegisterFragment extends DialogFragment
-{
-
+public class RegisterFragment extends android.support.v4.app.DialogFragment {
     private static final String TAG = "RegisterFragment";
     private Context context;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frgment_resgister, null);
+        context = getContext();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.fragment_resgister, null);
+        builder.setView(view);
         final EditText et_username = (EditText) view.findViewById(R.id.et_username);
         final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         final EditText et_email = (EditText) view.findViewById(R.id.et_email);
         context = getContext();
-        view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener()
-        {
+
+
+        view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //注册
                 register(
                         et_username.getText().toString(),
@@ -58,10 +59,7 @@ public class RegisterFragment extends DialogFragment
                 );
             }
         });
-        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
 
-        //把xml文件渲染成一个view
-        builder.setView(view);
         return builder.create();
     }
 
@@ -69,7 +67,7 @@ public class RegisterFragment extends DialogFragment
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 //    {
-//        View view = inflater.inflate(R.layout.frgment_resgister, null);
+//        View view = inflater.inflate(R.layout.fragment_resgister, null);
 //        final EditText et_username = (EditText) view.findViewById(R.id.et_username);
 //        final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
 //        final EditText et_email = (EditText) view.findViewById(R.id.et_email);
@@ -91,8 +89,7 @@ public class RegisterFragment extends DialogFragment
 //        return view;
 //    }
 
-    private void register(String username, String pwd, String email)
-    {
+    private void register(String username, String pwd, String email) {
         //TODO 对用户名，密码，邮箱进行本地校验
         Map<String, String> p = new HashMap<>();
         // user_register?ver=版本号&uid=用户名&email=邮箱&pwd=登陆密码
@@ -104,24 +101,17 @@ public class RegisterFragment extends DialogFragment
         new RegisterTask().execute(urlPath);
     }
 
-    class RegisterTask extends AsyncTask<String, Void, String>
-    {
+    class RegisterTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... params)
-        {
+        protected String doInBackground(String... params) {
             UserManager m = new UserManager();
-            try
-            {
+            try {
                 return m.register(params[0]);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(context, "服务器访问失败", Toast.LENGTH_SHORT).show();
-            }
-            catch (URLErrorException e)
-            {
+            } catch (URLErrorException e) {
                 e.printStackTrace();
                 Toast.makeText(context, "参数有误", Toast.LENGTH_SHORT).show();
             }
@@ -129,35 +119,32 @@ public class RegisterFragment extends DialogFragment
         }
 
         @Override
-        protected void onPostExecute(String s)
-        {
+        protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Register registerInfo = parseRegister(s);
-            if (registerInfo != null)
-            {
-                if (registerInfo.getResult().equals("0"))
-                {
+            if (registerInfo != null) {
+                if (registerInfo.getResult().equals("0")) {
                     //注册成功,跳到用户信息界面
-                }
-                else
-                {
+                    //让dialog消失
+                    dismiss();
+                    //再跳转到用户信息界面
+                    getFragmentManager().beginTransaction().replace(R.id.container_login,
+                            new UserInfoFragment()
+                    ).commit();
+                } else {
                     //注册失败
                 }
                 Toast.makeText(context, registerInfo.getExplain(), Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
+            } else {
                 //注册失败
                 Toast.makeText(context, "failed ...", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public Register parseRegister(String jsonString)
-    {
+    public Register parseRegister(String jsonString) {
         Gson g = new Gson();
-        Type t = new TypeToken<BaseEntity<Register>>()
-        {
+        Type t = new TypeToken<BaseEntity<Register>>() {
         }.getType();
         BaseEntity entity = g.fromJson(jsonString, t);
         return (Register) entity.getData();
