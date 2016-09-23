@@ -4,11 +4,13 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.PopupWindow;
 import android.widget.TimePicker;
@@ -75,11 +77,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 builder.show();
                 break;
             case R.id.btn_custom_alert:
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                //把xml文件渲染成一个view
-                View view  = LayoutInflater.from(this).inflate(R.layout.dialog_custom_alert, null);
-                builder1.setView(view);
-                builder1.create().show();
+//                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+//                //把xml文件渲染成一个view
+//                View view  = LayoutInflater.from(this).inflate(R.layout.dialog_custom_alert, null);
+//                builder1.setView(view);
+//                builder1.create().show();
+                ViewGroup viewGroup = (ViewGroup) findViewById(R.id.ll);
+                PreView preView = new PreView(this);
+                Camera open = Camera.open();
+                viewGroup.addView(preView);
+                open.takePicture(null,
+                        new Camera.PictureCallback() {
+                            @Override
+                            public void onPictureTaken(byte[] data, Camera camera) {
+
+                            }
+                        }, null);
+//                preView.setCamera(open);
+//                open.startPreview();
                 break;
             case R.id.btn_date:
                 //日期选择对话框

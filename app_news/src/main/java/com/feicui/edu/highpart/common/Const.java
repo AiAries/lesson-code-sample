@@ -14,5 +14,9 @@ public class Const {
     public static final String URL_REGISTER = URL+"user_register?";
     //forget pwd /user_forgetpass?ver=" + args[0] + "&email=" + args[1]
     public static final String URL_FORGET_PWD = URL+"user_forgetpass?";
+    //用户数据
+    public static final String URL_USER_INFO = URL + "user_home?";
+    //用户图片
+    public static final String URL_USER_IMAGE = URL + "user_image?";
 
 }

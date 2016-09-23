@@ -17,6 +17,7 @@ import com.feicui.edu.highpart.bean.Register;
 import com.feicui.edu.highpart.biz.UserManager;
 import com.feicui.edu.highpart.common.CommonUtil;
 import com.feicui.edu.highpart.common.Const;
+import com.feicui.edu.highpart.common.SharedPreferenceUtil;
 import com.feicui.edu.highpart.common.SystemUtils;
 import com.feicui.edu.highpart.common.UrlComposeUtil;
 import com.feicui.edu.highpart.exception.URLErrorException;
@@ -124,7 +125,8 @@ public class LoginFragment extends Fragment {
                 Register registerInfo = (Register) entity.getData();
 
                 if (registerInfo.getResult().equals("0")) {
-                    //登入成功
+                    //登入成功,保存token值
+                    SharedPreferenceUtil.saveToken(context,registerInfo.getToken());
                     getFragmentManager().beginTransaction().replace(R.id.container_login,
                             new UserInfoFragment()
                     ).commit();

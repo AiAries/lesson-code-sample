@@ -1,0 +1,13 @@
+官方笔记：https://developer.android.com/training/camera/photobasics.html#TaskManifest
+activity
+    activity.startActivityForResult()
+     @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+fragment
+    fragment.startActivityForResult()
+     @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }

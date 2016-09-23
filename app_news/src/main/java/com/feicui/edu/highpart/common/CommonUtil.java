@@ -10,16 +10,20 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommonUtil
-{
-    public static final String APPURL="http://118.244.212.82:9094/newsClient";
+public class CommonUtil {
+    public static final String APPURL = "http://118.244.212.82:9094/newsClient";
     //	public static final String APPURL="http://192.168.1.12:8080/newsClient";
     public static final int VERSION_CODE = 1;
-    public static String getSystime(){
+
+    public static String getSystime() {
         String systime;
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddhhmmss");
-        systime=dateFormat.format(new Date(System.currentTimeMillis()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+        systime = dateFormat.format(new Date(System.currentTimeMillis()));
         return systime;
+    }
+
+    public static int getDisplayWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
     }
 
     public static String getFileSize(long fileSize) {
@@ -43,7 +47,8 @@ public class CommonUtil
 
     /**
      * 获取当前日期
-     * @return   20140716
+     *
+     * @return 20140716
      */
     public static String getDate() {
         Date date = new Date(System.currentTimeMillis());
@@ -59,10 +64,11 @@ public class CommonUtil
 
     /**
      * 验证邮箱格式
-     * @param email  email
+     *
+     * @param email email
      * @return
      */
-    public static boolean verifyEmail(String email){
+    public static boolean verifyEmail(String email) {
         Pattern pattern = Pattern
                 .compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)" +
                         "|(([a-zA-Z0-9\\-]+\\.)+))" +
@@ -70,12 +76,14 @@ public class CommonUtil
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
     /***
      * 验证密码格式
+     *
      * @param password
      * @return
      */
-    public static boolean verifyPassword(String password){
+    public static boolean verifyPassword(String password) {
         Pattern pattern = Pattern
                 .compile("^[a-zA-Z0-9]{6,16}$");
         Matcher matcher = pattern.matcher(password);
@@ -91,7 +99,7 @@ public class CommonUtil
     public static int getVersionCode(Context context)//获取版本号(内部识别号)
     {
         try {
-            PackageInfo pi=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             return pi.versionCode;
         } catch (NameNotFoundException e) {
             // TODO Auto-generated catch block

@@ -14,10 +14,13 @@ import android.util.Log;
 import android.util.Xml;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.feicui.edu.highpart.asyntask.HttpUtil;
 import com.feicui.edu.highpart.bean.NewsGroup;
+import com.feicui.edu.highpart.common.SharedPreferenceUtil;
 import com.feicui.edu.highpart.fragment.CommentFragment;
 import com.feicui.edu.highpart.fragment.FavoriteFragment;
 import com.feicui.edu.highpart.fragment.LocalFragment;
@@ -34,6 +37,8 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        mNavigationView.getHeaderView(0)
-       .setOnClickListener(new View.OnClickListener() {
+
+        View view = View.inflate(this,R.layout.drawer_header,null);
+        mNavigationView.addHeaderView(view);
+
+       view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //跳转到登入界面，同时关闭抽屉mNavigationView
@@ -62,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
             }
         });
-
+        CircleImageView header = (CircleImageView) view.findViewById(R.id.iv_header);
+        Glide.with(this).load(SharedPreferenceUtil.getHeader(this))
+                .placeholder(R.drawable.a3)//默认图片
+                .centerCrop().into(header);
+        TextView username = (TextView) view.findViewById(R.id.tv_username);
+        username.setText(SharedPreferenceUtil.getUserName(this));
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

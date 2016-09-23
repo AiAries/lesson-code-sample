@@ -17,6 +17,7 @@ import com.feicui.edu.highpart.bean.Register;
 import com.feicui.edu.highpart.biz.UserManager;
 import com.feicui.edu.highpart.common.CommonUtil;
 import com.feicui.edu.highpart.common.Const;
+import com.feicui.edu.highpart.common.SharedPreferenceUtil;
 import com.feicui.edu.highpart.common.UrlComposeUtil;
 import com.feicui.edu.highpart.exception.URLErrorException;
 import com.google.gson.Gson;
@@ -124,7 +125,8 @@ public class RegisterFragment extends android.support.v4.app.DialogFragment {
             Register registerInfo = parseRegister(s);
             if (registerInfo != null) {
                 if (registerInfo.getResult().equals("0")) {
-                    //注册成功,跳到用户信息界面
+                    //注册成功,跳到用户信息界面,保存token值
+                    SharedPreferenceUtil.saveToken(context,registerInfo.getToken());
                     //让dialog消失
                     dismiss();
                     //再跳转到用户信息界面
