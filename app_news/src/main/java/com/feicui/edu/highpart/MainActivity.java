@@ -71,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         CircleImageView header = (CircleImageView) view.findViewById(R.id.iv_header);
-        Glide.with(this).load(SharedPreferenceUtil.getHeader(this))
+        String headerUrl = SharedPreferenceUtil.getHeader(this);//头像的网络URL
+        Toast.makeText(MainActivity.this, headerUrl, Toast.LENGTH_LONG).show();
+        Glide.with(this).load(headerUrl)
                 .placeholder(R.drawable.a3)//默认图片
                 .centerCrop().into(header);
         TextView username = (TextView) view.findViewById(R.id.tv_username);

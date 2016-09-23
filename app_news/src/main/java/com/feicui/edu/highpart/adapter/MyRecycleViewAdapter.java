@@ -59,6 +59,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             public void onClick(View v) {
                 Intent intent = new Intent(context, WebViewActivity.class);
                 intent.putExtra("url", news.getLink());
+                intent.putExtra("nid", news.getNid());
                 context.startActivity(intent);
             }
         });

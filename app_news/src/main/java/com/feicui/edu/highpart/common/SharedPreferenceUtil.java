@@ -15,7 +15,7 @@ public class SharedPreferenceUtil {
 
     public static String getToken(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        return preferences.getString("token",null);
+        return preferences.getString("token","");
     }
 
     public static void saveUserName(Context context, String username) {

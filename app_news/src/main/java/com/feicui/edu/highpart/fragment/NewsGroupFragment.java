@@ -1,6 +1,7 @@
 package com.feicui.edu.highpart.fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -53,7 +54,7 @@ public class NewsGroupFragment extends Fragment {
         final TabLayout tab = (TabLayout) view.findViewById(R.id.news_tabs);
         //设置tablayout滚动
         tab.setTabMode(TabLayout.MODE_SCROLLABLE);
-
+        tab.setSelectedTabIndicatorColor(Color.WHITE);
 
         //异步加载新闻标题数据
         new Thread(){

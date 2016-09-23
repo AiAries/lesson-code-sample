@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -64,11 +67,10 @@ public class OkHttpUtil {
     }
 
 
-
     public static final MediaType FILE
             = MediaType.parse("application/octet-stream; charset=utf-8");
 
-    public static String postFile(String url, File file,String token) throws IOException {
+    public static String postFile(String url, File file, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
@@ -78,6 +80,28 @@ public class OkHttpUtil {
         RequestBody body = RequestBody.create(FILE, file);
         builder.addFormDataPart("portrait", file.getName(), body);
 
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(builder.build())
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public static String postString(String url, Map<String,String> map) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        Iterator<Map.Entry<String, String>> iterator = entries.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> next = iterator.next();
+            String key = next.getKey();
+            String value = next.getValue();
+            builder.addFormDataPart(key, value);
+        }
 
         Request request = new Request.Builder()
                 .url(url)

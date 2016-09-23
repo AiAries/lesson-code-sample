@@ -105,7 +105,7 @@ public class UserInfoFragment extends Fragment {
         window = new PopupWindow(context);
         window.setWidth(CommonUtil.getDisplayWidth(context));
 //        window.setWidth(300);
-        //window.setHeight(160);
+        window.setHeight(4000);
         View view1 = LayoutInflater.from(context).inflate(R.layout.bottom_sheet, null);
         window.setContentView(view1);
         view1.findViewById(R.id.btn_take_photo).setOnClickListener(new View.OnClickListener() {
