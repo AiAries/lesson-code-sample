@@ -25,6 +25,8 @@
             <option value="$PROJECT_DIR$/frameanim" />
             <option value="$PROJECT_DIR$/getrunningapp" />
             <option value="$PROJECT_DIR$/intentjump_senddata" />
+            <option value="$PROJECT_DIR$/jpush" />
+            <option value="$PROJECT_DIR$/jpushDemo" />
             <option value="$PROJECT_DIR$/mdedia_player_and_service" />
             <option value="$PROJECT_DIR$/mediaplayer_and_service" />
             <option value="$PROJECT_DIR$/notificationdemo" />
@@ -32,6 +34,7 @@
             <option value="$PROJECT_DIR$/package_manager_demo" />
             <option value="$PROJECT_DIR$/pie_chart" />
             <option value="$PROJECT_DIR$/readdbdata" />
+            <option value="$PROJECT_DIR$/sharesdk" />
             <option value="$PROJECT_DIR$/ui_thread_and_subthread" />
             <option value="$PROJECT_DIR$/viewanimationdemo" />
             <option value="$PROJECT_DIR$/viewpage_fragment" />
@@ -60,6 +63,8 @@
             <option value="$PROJECT_DIR$/frameanim" />
             <option value="$PROJECT_DIR$/getrunningapp" />
             <option value="$PROJECT_DIR$/intentjump_senddata" />
+            <option value="$PROJECT_DIR$/jpush" />
+            <option value="$PROJECT_DIR$/jpushDemo" />
             <option value="$PROJECT_DIR$/mdedia_player_and_service" />
             <option value="$PROJECT_DIR$/mediaplayer_and_service" />
             <option value="$PROJECT_DIR$/notificationdemo" />
@@ -67,6 +72,7 @@
             <option value="$PROJECT_DIR$/package_manager_demo" />
             <option value="$PROJECT_DIR$/pie_chart" />
             <option value="$PROJECT_DIR$/readdbdata" />
+            <option value="$PROJECT_DIR$/sharesdk" />
             <option value="$PROJECT_DIR$/ui_thread_and_subthread" />
             <option value="$PROJECT_DIR$/viewanimationdemo" />
             <option value="$PROJECT_DIR$/viewpage_fragment" />

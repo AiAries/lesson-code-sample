@@ -69,7 +69,6 @@ public class OkHttpUtil {
 
     public static final MediaType FILE
             = MediaType.parse("application/octet-stream; charset=utf-8");
-
     public static String postFile(String url, File file, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
@@ -79,7 +78,6 @@ public class OkHttpUtil {
 
         RequestBody body = RequestBody.create(FILE, file);
         builder.addFormDataPart("portrait", file.getName(), body);
-
 
         Request request = new Request.Builder()
                 .url(url)

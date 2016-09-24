@@ -19,6 +19,8 @@
       <module fileurl="file://$PROJECT_DIR$/frameanim/frameanim.iml" filepath="$PROJECT_DIR$/frameanim/frameanim.iml" />
       <module fileurl="file://$PROJECT_DIR$/getrunningapp/getrunningapp.iml" filepath="$PROJECT_DIR$/getrunningapp/getrunningapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/intentjump_senddata/intentjump_senddata.iml" filepath="$PROJECT_DIR$/intentjump_senddata/intentjump_senddata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jpush/jpush.iml" filepath="$PROJECT_DIR$/jpush/jpush.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jpushDemo/jpushDemo.iml" filepath="$PROJECT_DIR$/jpushDemo/jpushDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/lesson-code-sample.iml" filepath="$PROJECT_DIR$/lesson-code-sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/mdedia_player_and_service/mdedia_player_and_service.iml" filepath="$PROJECT_DIR$/mdedia_player_and_service/mdedia_player_and_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediaplayer_and_service/mediaplayer_and_service.iml" filepath="$PROJECT_DIR$/mediaplayer_and_service/mediaplayer_and_service.iml" />
@@ -27,6 +29,7 @@
       <module fileurl="file://$PROJECT_DIR$/package_manager_demo/package_manager_demo.iml" filepath="$PROJECT_DIR$/package_manager_demo/package_manager_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pie_chart/pie_chart.iml" filepath="$PROJECT_DIR$/pie_chart/pie_chart.iml" />
       <module fileurl="file://$PROJECT_DIR$/readdbdata/readdbdata.iml" filepath="$PROJECT_DIR$/readdbdata/readdbdata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui_thread_and_subthread/ui_thread_and_subthread.iml" filepath="$PROJECT_DIR$/ui_thread_and_subthread/ui_thread_and_subthread.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewanimationdemo/viewanimationdemo.iml" filepath="$PROJECT_DIR$/viewanimationdemo/viewanimationdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewpage_fragment/viewpage_fragment.iml" filepath="$PROJECT_DIR$/viewpage_fragment/viewpage_fragment.iml" />
