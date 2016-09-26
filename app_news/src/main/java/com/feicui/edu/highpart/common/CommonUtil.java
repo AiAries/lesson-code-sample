@@ -3,6 +3,7 @@ package com.feicui.edu.highpart.common;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.view.inputmethod.InputMethodManager;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -11,10 +12,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommonUtil {
-    public static final String APPURL = "http://118.244.212.82:9094/newsClient";
-    //	public static final String APPURL="http://192.168.1.12:8080/newsClient";
-    public static final int VERSION_CODE = 1;
 
+    private static long lastClickTime;//5646546546
+
+    public static boolean isFastDoubleClick()
+    {
+        long time = System.currentTimeMillis();//5646546546+100
+        long timeD = time - lastClickTime;
+        if (0 < timeD && timeD < 200)
+        {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
+    }
+    public static void hideKeyBoard(Context context)
+    {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
     public static String getSystime() {
         String systime;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");

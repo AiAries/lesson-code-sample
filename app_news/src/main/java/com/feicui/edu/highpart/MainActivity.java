@@ -1,11 +1,12 @@
 package com.feicui.edu.highpart;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +20,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.feicui.edu.highpart.asyntask.HttpUtil;
+import com.feicui.edu.highpart.bean.BaseEntity;
 import com.feicui.edu.highpart.bean.NewsGroup;
+import com.feicui.edu.highpart.bean.User;
+import com.feicui.edu.highpart.biz.UserManager;
+import com.feicui.edu.highpart.common.CommonUtil;
+import com.feicui.edu.highpart.common.Const;
 import com.feicui.edu.highpart.common.SharedPreferenceUtil;
+import com.feicui.edu.highpart.common.SystemUtils;
+import com.feicui.edu.highpart.common.UrlComposeUtil;
+import com.feicui.edu.highpart.exception.URLErrorException;
 import com.feicui.edu.highpart.fragment.CommentFragment;
 import com.feicui.edu.highpart.fragment.FavoriteFragment;
 import com.feicui.edu.highpart.fragment.LocalFragment;
+import com.feicui.edu.highpart.fragment.LoginFragment;
 import com.feicui.edu.highpart.fragment.NewsGroupFragment;
 import com.feicui.edu.highpart.fragment.PicFragment;
 import com.google.gson.Gson;
@@ -36,7 +46,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String PREFERENCES_FILE = "mymaterialapp_settings";
     private boolean mUserLearnedDrawer;
+    private CircleImageView header;
+    private TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +73,21 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
-        View view = View.inflate(this,R.layout.drawer_header,null);
+        View view = View.inflate(this, R.layout.drawer_header, null);
         mNavigationView.addHeaderView(view);
 
-       view.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //跳转到登入界面，同时关闭抽屉mNavigationView
                 mDrawerLayout.closeDrawer(mNavigationView);
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+//                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.container, new LoginFragment()).commit();
             }
         });
-        CircleImageView header = (CircleImageView) view.findViewById(R.id.iv_header);
-        String headerUrl = SharedPreferenceUtil.getHeader(this);//头像的网络URL
-        Toast.makeText(MainActivity.this, headerUrl, Toast.LENGTH_LONG).show();
-        Glide.with(this).load(headerUrl)
-                .placeholder(R.drawable.a3)//默认图片
-                .centerCrop().into(header);
-        TextView username = (TextView) view.findViewById(R.id.tv_username);
-        username.setText(SharedPreferenceUtil.getUserName(this));
+        header = (CircleImageView) view.findViewById(R.id.iv_header);
+        username = (TextView) view.findViewById(R.id.tv_username);
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -86,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_item_1:
                         getSupportFragmentManager().beginTransaction().
-                            replace(R.id.container, new NewsGroupFragment()).commit();
+                                replace(R.id.container, new NewsGroupFragment()).commit();
                         break;
                     case R.id.navigation_item_2:
                         getSupportFragmentManager().beginTransaction().
@@ -113,9 +123,101 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        getSupportFragmentManager().beginTransaction().
-                add(R.id.container, new NewsGroupFragment()).commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.
+                add(R.id.container, new NewsGroupFragment());
+        fragmentTransaction.commit();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //当返回键被按下的时候，回调此方法
+        //连续按两次，根据两次点击的时间差
+        if (CommonUtil.isFastDoubleClick()) {
+            finish();//退出界面
+        } else {
+            Toast.makeText(MainActivity.this, "请再按一次退出程序", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //加载用户信息
+        loadUserInfo();
+    }
+
+    public void loadUserInfo() {
+        Map<String, String> p = new HashMap<>();
+        //user_home?ver=版本号&imei=手机标识符&token =用户令牌
+        p.put("ver", CommonUtil.getVersionCode(this) + "");
+        p.put("imei", SystemUtils.getIMEI(this));
+        p.put("token", SharedPreferenceUtil.getToken(this));
+        String urlPath = UrlComposeUtil.getUrlPath(Const.URL_USER_INFO, p);
+        new LoadUserTask().execute(urlPath);
+    }
+
+    class LoadUserTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            UserManager m = new UserManager();
+            try {
+                return m.getUserInfo(params[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "服务器访问失败", Toast.LENGTH_SHORT).show();
+            } catch (URLErrorException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "参数有误", Toast.LENGTH_SHORT).show();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //解析返回字符串
+            BaseEntity baseEntity = parseUserInfo(s);
+            if (baseEntity == null) {
+                return;
+            }
+            if (baseEntity.getStatus().equals("0")) {
+                //成功 ，把数据设置到view中
+                User user = (User) baseEntity.getData();
+                String portrait = user.getPortrait();
+                Glide.with(MainActivity.this).load(portrait)
+                        .centerCrop().into(header);
+                username.setText(user.getUid());
+            } else {
+                //失败
+                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    private BaseEntity parseUserInfo(String s) {
+        Gson g = new Gson();
+        Type t = new TypeToken<BaseEntity<User>>() {
+        }.getType();
+        return g.fromJson(s, t);
+    }
+
+    /**
+     * 给每个fragment调用，回到新闻主界面
+     */
+    public void backToMainActivity(Toolbar toolbar) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//导航箭头
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.container, new NewsGroupFragment()).commit();
+            }
+        });
     }
 
     public void setUpNavDrawer(Toolbar toolbar) {
@@ -130,12 +232,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-//
-//        if (!mUserLearnedDrawer) {
-//            mDrawerLayout.openDrawer(GravityCompat.START);
-//            mUserLearnedDrawer = true;
-//            saveSharedSetting(this, PREF_USER_LEARNED_DRAWER, "true");
-//        }
 
     }
 

@@ -5,16 +5,23 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.feicui.edu.highpart.bean.BaseEntity;
+import com.feicui.edu.highpart.bean.News;
 import com.feicui.edu.highpart.common.CommonUtil;
 import com.feicui.edu.highpart.common.Const;
 import com.feicui.edu.highpart.common.OkHttpUtil;
 import com.feicui.edu.highpart.common.SharedPreferenceUtil;
+import com.feicui.edu.highpart.common.UrlComposeUtil;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,12 +29,18 @@ import java.util.Map;
 
 public class WebViewActivity extends AppCompatActivity {
 
+    private WebView wbv;
+    private EditText et_comment;
+    private MenuItem item;
+    private News news;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         //Init toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        et_comment = (EditText) findViewById(R.id.et_comment);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//设置返回箭头可用
         //给图片设置的点击事件
@@ -38,15 +51,15 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
 
-        WebView wbv = (WebView) findViewById(R.id.wbv);
+        wbv = (WebView) findViewById(R.id.wbv);
         //设置一些webview的属性
         wbv.getSettings().setJavaScriptEnabled(true);//可以执行网页的javascript代码
 //        wbv.getSettings().setSupportZoom(true);
 //        wbv.getSettings().setBuiltInZoomControls(true);
         final Intent intent = getIntent();
         if (intent != null) {
-//            News news = (News) intent.getSerializableExtra("url");
-             String url = intent.getStringExtra("url");
+            news = (News) intent.getSerializableExtra("news");
+             String url = news.getLink();
             //设置webview的客户端,
             wbv.setWebViewClient(new WebViewClient(){
                 @Override
@@ -56,19 +69,75 @@ public class WebViewActivity extends AppCompatActivity {
             });
             wbv.loadUrl(url);
         }
-
+        final int nid = news.getNid();
         //发送评论
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int nid = intent.getIntExtra("nid",0);
                 sendComment(nid);
             }
         });
+
+        //加载当前新闻评论的数量
+        loadCommentCount(nid);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.menu_comment_count,menu);
+        item = menu.findItem(R.id.menu_comment_count);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_comment_count) {
+            //跳到展示评论页面
+            Intent intent = new Intent(WebViewActivity.this, ShowCommentActivity.class);
+            intent.putExtra("news", news);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void loadCommentCount(int nid) {
+        //cmt_num?ver=版本号& nid=新闻编号
+        Map<String, String> p = new HashMap<>();
+        p.put("ver", CommonUtil.getVersionCode(this) + "");
+        p.put("nid", nid+"");
+        String urlPath = UrlComposeUtil.getUrlPath(Const.URL_USER_COMMENT_COUNT, p);
+        new LoadCommentCountTask().execute(urlPath);
+    }
+
+    class LoadCommentCountTask extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String path = params[0];
+            return OkHttpUtil.getString(path);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //解析json字符串
+            Gson gson = new Gson();
+            BaseEntity entity = gson.fromJson(s, BaseEntity.class);
+            if (entity == null) {
+                Toast.makeText(WebViewActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
+            } else {
+                double count = (double) entity.getData();//评论数量
+                item.setTitle("评论数"+(int)count);
+            }
+
+        }
     }
 
     private void sendComment(int nid) {
-        EditText et_comment = (EditText) findViewById(R.id.et_comment);
+
         String content = et_comment.getText().toString().trim();
         //cmt_commit?ver=版本号&nid=新闻编号&token=用户令牌&imei=手机标识符&ctx=评论内容
 
@@ -98,10 +167,13 @@ public class WebViewActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if (s != null) {
+                wbv.requestFocus();//获取焦点
+                et_comment.setText("");//清空评论
                 Toast.makeText(WebViewActivity.this, s, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(WebViewActivity.this, s, Toast.LENGTH_SHORT).show();
             }
+            CommonUtil.hideKeyBoard(WebViewActivity.this);
         }
     }
 }

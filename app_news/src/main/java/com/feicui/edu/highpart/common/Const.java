@@ -20,5 +20,9 @@ public class Const {
     public static final String URL_USER_IMAGE = URL + "user_image?";
     //用户评论
     public static final String URL_USER_COMMENT = URL + "cmt_commit?";
+    //用户评论数量
+    public static final String URL_USER_COMMENT_COUNT = URL + "cmt_num?";
+    //用户评论信息
+    public static final String URL_USER_COMMENT_INFO = URL + "cmt_list?";
 
 }

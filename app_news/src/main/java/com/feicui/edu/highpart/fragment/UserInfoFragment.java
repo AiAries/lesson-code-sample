@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.BaseEntity;
 import com.feicui.edu.highpart.bean.LoginLog;
@@ -105,7 +106,7 @@ public class UserInfoFragment extends Fragment {
         window = new PopupWindow(context);
         window.setWidth(CommonUtil.getDisplayWidth(context));
 //        window.setWidth(300);
-        window.setHeight(4000);
+        window.setHeight(DensityUtil.dip2px(context, 200));
         View view1 = LayoutInflater.from(context).inflate(R.layout.bottom_sheet, null);
         window.setContentView(view1);
         view1.findViewById(R.id.btn_take_photo).setOnClickListener(new View.OnClickListener() {
@@ -149,6 +150,9 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data==null) {
+            return;
+        }
         GetPictureUtil.onActivityResult(requestCode, data, this);
         if (resultCode == Activity.RESULT_OK) {
             String path = GetPictureUtil.getFilePathString(getActivity());
@@ -193,6 +197,18 @@ public class UserInfoFragment extends Fragment {
 //        下载用户数据
         loadUserInfo();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //当activity创建的时候，回调
+        if (getActivity() instanceof MainActivity) {
+            final MainActivity activity = (MainActivity) getActivity();
+            activity.setSupportActionBar(toolbar);
+            activity.backToMainActivity(toolbar);
+            activity.loadUserInfo();
+        }
     }
 
     private void loadUserInfo() {
@@ -293,8 +309,6 @@ public class UserInfoFragment extends Fragment {
     private void setDataToView(BaseEntity baseEntity) {
         User user = (User) baseEntity.getData();
         String portrait = user.getPortrait();
-        SharedPreferenceUtil.saveUserName(context,user.getUid());
-        SharedPreferenceUtil.saveHeader(context,portrait);
         name.setText(user.getUid());
         Glide.with(this).load(portrait)
         .centerCrop().into(icon);

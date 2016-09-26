@@ -16,6 +16,7 @@
         android:id="@+id/wbv"
         />
     <LinearLayout
+        android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,7 +28,7 @@
             android:layout_weight="1.0"/>
         <Button
             android:id="@+id/btn_send"
-
+            android:background="@color/colorPrimary"
             android:text="发送评论"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

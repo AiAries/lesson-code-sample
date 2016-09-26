@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.BaseEntity;
 import com.feicui.edu.highpart.bean.Register;
@@ -35,12 +37,25 @@ import java.util.Map;
 public class LoginFragment extends Fragment {
 
     private Context context;
+    private Toolbar toolbar;
 
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //当activity创建的时候，回调
+        if (getActivity() instanceof MainActivity) {
+            final MainActivity activity = (MainActivity) getActivity();
+            activity.setSupportActionBar(toolbar);
+            activity.backToMainActivity(toolbar);
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frgment_login, null);
         final EditText et_pwd = (EditText) view.findViewById(R.id.et_pwd);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         final EditText et_username = (EditText) view.findViewById(R.id.et_username);
         context = getContext();
         view.findViewById(R.id.register).setOnClickListener(
@@ -83,8 +98,6 @@ public class LoginFragment extends Fragment {
                 });
         return view;
     }
-
-
     private void login(String username, String pwd) {
         Map<String, String> p = new HashMap<>();
         //TODO 对用户名，密码，邮箱进行本地校验
@@ -127,7 +140,7 @@ public class LoginFragment extends Fragment {
                 if (registerInfo.getResult().equals("0")) {
                     //登入成功,保存token值
                     SharedPreferenceUtil.saveToken(context,registerInfo.getToken());
-                    getFragmentManager().beginTransaction().replace(R.id.container_login,
+                    getFragmentManager().beginTransaction().replace(R.id.container,
                             new UserInfoFragment()
                     ).commit();
                 } else {

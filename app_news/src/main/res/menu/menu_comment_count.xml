@@ -2,9 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <item
-        android:id="@+id/menu_share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:id="@+id/menu_comment_count"
         android:showAsAction="always"
-        android:title="@string/main_share"/>
-
+        android:title="评论数量99+"/>
 </menu>

@@ -13,22 +13,25 @@ public class SystemUtils
 {
 
     private static SystemUtils systemUtils;
-    private Context context;
     private TelephonyManager telManager;
     private ConnectivityManager connManager;
     private LocationManager locationManager;
     private String position;
 
     private SystemUtils(Context context) {
-        this.context = context;
         telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         locationManager=(LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
     public static SystemUtils getInstance(Context context) {
-        if (systemUtils == null) {
-            systemUtils = new SystemUtils(context);
+        if (systemUtils==null) {
+            synchronized (SystemUtils.class) {
+                if (systemUtils == null) {
+                    systemUtils = new SystemUtils(context);
+                    return systemUtils;
+                }
+            }
         }
         return systemUtils;
     }

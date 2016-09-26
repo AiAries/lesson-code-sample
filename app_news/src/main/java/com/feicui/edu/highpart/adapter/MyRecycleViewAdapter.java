@@ -3,6 +3,7 @@ package com.feicui.edu.highpart.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,14 +53,17 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     public void onBindViewHolder(final MyViewHold holder, final int position) {
         final News news = newses.get(position);
         String iconPath = news.getIcon();
-        iconPath = iconPath.replace("localhost", "192.168.2.35");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (news==null|| TextUtils.isEmpty(news.getLink())) {
+                    return;
+                }
                 Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra("url", news.getLink());
-                intent.putExtra("nid", news.getNid());
+//                intent.putExtra("url", news.getLink());
+//                intent.putExtra("nid", news.getNid());
+                intent.putExtra("news", news);
                 context.startActivity(intent);
             }
         });

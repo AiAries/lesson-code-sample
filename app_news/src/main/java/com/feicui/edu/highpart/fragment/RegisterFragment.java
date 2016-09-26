@@ -101,7 +101,6 @@ public class RegisterFragment extends android.support.v4.app.DialogFragment {
         String urlPath = UrlComposeUtil.getUrlPath(Const.URL_REGISTER, p);
         new RegisterTask().execute(urlPath);
     }
-
     class RegisterTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -130,7 +129,7 @@ public class RegisterFragment extends android.support.v4.app.DialogFragment {
                     //让dialog消失
                     dismiss();
                     //再跳转到用户信息界面
-                    getFragmentManager().beginTransaction().replace(R.id.container_login,
+                    getFragmentManager().beginTransaction().replace(R.id.container,
                             new UserInfoFragment()
                     ).commit();
                 } else {

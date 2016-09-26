@@ -18,23 +18,4 @@ public class SharedPreferenceUtil {
         return preferences.getString("token","");
     }
 
-    public static void saveUserName(Context context, String username) {
-        SharedPreferences preferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
-        preferences.edit().putString("username", username).apply();
-    }
-
-    public static String getUserName(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
-        return preferences.getString("username", null);
-    }
-
-    public static void saveHeader(Context context, String Header) {
-        SharedPreferences preferences = context.getSharedPreferences("Header", Context.MODE_PRIVATE);
-        preferences.edit().putString("Header", Header).apply();
-    }
-
-    public static String getHeader(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("Header", Context.MODE_PRIVATE);
-        return preferences.getString("Header", null);
-    }
 }

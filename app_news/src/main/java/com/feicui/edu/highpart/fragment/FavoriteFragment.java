@@ -21,4 +21,5 @@ public class FavoriteFragment extends Fragment {
     {
         return inflater.inflate(R.layout.fragment_favorite,null);
     }
+
 }
