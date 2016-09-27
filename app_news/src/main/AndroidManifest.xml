@@ -36,7 +36,6 @@
         <activity
             android:name=".WebViewActivity"
             android:label="webView" />
-        <activity android:name=".LoginActivity" />
         <activity android:name=".ShowCommentActivity"></activity>
     </application>
 

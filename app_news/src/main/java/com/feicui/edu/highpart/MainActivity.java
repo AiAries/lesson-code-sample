@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Xml;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.feicui.edu.highpart.fragment.LocalFragment;
 import com.feicui.edu.highpart.fragment.LoginFragment;
 import com.feicui.edu.highpart.fragment.NewsGroupFragment;
 import com.feicui.edu.highpart.fragment.PicFragment;
+import com.feicui.edu.highpart.fragment.UserInfoFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -79,11 +81,22 @@ public class MainActivity extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到登入界面，同时关闭抽屉mNavigationView
+                //判断是否跳转到登入界面，同时关闭抽屉mNavigationView
                 mDrawerLayout.closeDrawer(mNavigationView);
-//                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.container, new LoginFragment()).commit();
+                //取出用户名和密码
+                String[] account = SharedPreferenceUtil.getAccount(MainActivity.this);
+                String username = account[0];
+                String pwd = account[1];
+                if (username == null || pwd == null) {
+                    //用户名密码为空，跳到登入界面
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.container, new LoginFragment()).commit();
+                } else {
+                    //跳到用户信息界面
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.container, new UserInfoFragment()).commit();
+                }
+
             }
         });
         header = (CircleImageView) view.findViewById(R.id.iv_header);
@@ -146,10 +159,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //加载用户信息
-        loadUserInfo();
+        if (SharedPreferenceUtil.getAccount(this)[0] != null) {
+            loadUserInfo();
+        }
     }
 
     public void loadUserInfo() {
+        if (SharedPreferenceUtil.getAccount(this)[0] == null) {
+            //用户名为空就设置默认图片头像
+            username.setText("登入");
+            header.setImageResource(R.mipmap.biz_pc_main_info_profile_avatar_bg_dark);
+            return;
+        }
         Map<String, String> p = new HashMap<>();
         //user_home?ver=版本号&imei=手机标识符&token =用户令牌
         p.put("ver", CommonUtil.getVersionCode(this) + "");
@@ -192,8 +213,9 @@ public class MainActivity extends AppCompatActivity {
                         .centerCrop().into(header);
                 username.setText(user.getUid());
             } else {
-                //失败
-                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+                //失败 清空账户信息，不会自动登入
+                SharedPreferenceUtil.saveAccount(MainActivity.this,null,null);
+                Toast.makeText(MainActivity.this, "token 值失效", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -211,15 +233,31 @@ public class MainActivity extends AppCompatActivity {
      */
     public void backToMainActivity(Toolbar toolbar) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//导航箭头
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        //专门为退出登入用
+        toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().
                         replace(R.id.container, new NewsGroupFragment()).commit();
+                selectedNewsItem();
+            }
+        });
+        //点击toolbar的导航触发
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadUserInfo();//刷新导航头部数据信息
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.container, new NewsGroupFragment()).commit();
+                selectedNewsItem();
             }
         });
     }
-
+    public void selectedNewsItem() {
+        Menu menu = mNavigationView.getMenu();
+        MenuItem item = menu.getItem(0);
+        item.setChecked(true);
+    }
     public void setUpNavDrawer(Toolbar toolbar) {
         if (toolbar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -349,14 +387,14 @@ public class MainActivity extends AppCompatActivity {
         }.getType();
 
         NewsGroup newsGroup = gson.fromJson(data, type);
-        Log.d(TAG, "parseNewsGroupJsonString: " + newsGroup.getMessage());
+        Log.d(TAG, "parseNewsGroup: " + newsGroup.getMessage());
         List<NewsGroup.DataBean> data1 = (List<NewsGroup.DataBean>) newsGroup.getData();
         for (NewsGroup.DataBean dataBean : data1) {
             String group = dataBean.getGroup();
-            Log.d(TAG, "parseNewsGroupJsonString: " + group);
+            Log.d(TAG, "parseNewsGroup: " + group);
             List<NewsGroup.DataBean.SubgrpBean> subgrp = (List<NewsGroup.DataBean.SubgrpBean>) dataBean.getSubgrp();
             for (NewsGroup.DataBean.SubgrpBean subgrpBean : subgrp) {
-                //Log.d(TAG, "parseNewsGroupJsonString: "+subgrpBean.getSubgroup());
+                //Log.d(TAG, "parseNewsGroup: "+subgrpBean.getSubgroup());
             }
         }
 

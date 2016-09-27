@@ -109,10 +109,18 @@ public class LoginFragment extends Fragment {
         p.put("ver", CommonUtil.getVersionCode(context) + "");
         p.put("device", Const.PHONE);
         String urlPath = UrlComposeUtil.getUrlPath(Const.URL_LOGIN, p);
-        new LoginTask().execute(urlPath);
+        new LoginTask(username,pwd).execute(urlPath);
     }
 
     class LoginTask extends AsyncTask<String, Void, String> {
+
+        private final String username;
+        private final String pwd;
+
+        public LoginTask(String username, String pwd) {
+            this.username = username;
+            this.pwd = pwd;
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -140,6 +148,8 @@ public class LoginFragment extends Fragment {
                 if (registerInfo.getResult().equals("0")) {
                     //登入成功,保存token值
                     SharedPreferenceUtil.saveToken(context,registerInfo.getToken());
+                    //保存用户名和密码
+                    SharedPreferenceUtil.saveAccount(context,username,pwd);
                     getFragmentManager().beginTransaction().replace(R.id.container,
                             new UserInfoFragment()
                     ).commit();

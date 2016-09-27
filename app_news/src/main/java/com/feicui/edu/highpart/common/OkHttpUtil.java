@@ -33,8 +33,9 @@ public class OkHttpUtil {
     public static String getString(String url) {
         ResponseBody responseBody = getResponseBody(url);
         try {
-            assert responseBody != null;
-            return responseBody.string();
+            if (responseBody != null) {
+                return responseBody.string();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,7 +55,15 @@ public class OkHttpUtil {
     }
 
     private static ResponseBody getResponseBody(String url) {
-        OkHttpClient client = new OkHttpClient();
+
+//        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+//        Cache cache = new Cache(new File("data/data/com.feicui.edu.highpart/files"), cacheSize);
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient client = builder
+//                .cache(cache)
+                .build();
+
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
         try {
@@ -69,6 +78,7 @@ public class OkHttpUtil {
 
     public static final MediaType FILE
             = MediaType.parse("application/octet-stream; charset=utf-8");
+
     public static String postFile(String url, File file, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
@@ -87,7 +97,7 @@ public class OkHttpUtil {
         return response.body().string();
     }
 
-    public static String postString(String url, Map<String,String> map) throws IOException {
+    public static String postString(String url, Map<String, String> map) throws IOException {
         OkHttpClient client = new OkHttpClient();
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);

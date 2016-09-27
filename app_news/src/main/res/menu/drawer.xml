@@ -12,6 +12,7 @@
             android:title="@string/main_favorite" />
         <item
             android:id="@+id/navigation_item_3"
+            android:visible="false"
             android:icon="@mipmap/biz_navigation_tab_local_news"
             android:title="@string/main_local" />
         <item

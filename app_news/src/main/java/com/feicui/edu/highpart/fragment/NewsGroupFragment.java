@@ -23,7 +23,7 @@ import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.NewsGroup;
 import com.feicui.edu.highpart.common.Const;
-import com.feicui.edu.highpart.asyntask.HttpUtil;
+import com.feicui.edu.highpart.common.OkHttpUtil;
 import com.feicui.edu.highpart.common.UrlComposeUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,7 +61,11 @@ public class NewsGroupFragment extends Fragment {
             @Override
             public void run() {
                 super.run();
-                parseNewsGroupJsonString();
+                boolean b = parseNewsGroup();
+                if (!b) {
+                    //解析有问题
+                    return;
+                }
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -163,12 +167,12 @@ public class NewsGroupFragment extends Fragment {
         }
     }
     //解析json数据
-    public void parseNewsGroupJsonString() {
+    public boolean parseNewsGroup() {
         String url = "http://118.244.212.82:9092/newsClient/news_sort?ver=1&imei=1";
-        String data = HttpUtil.getJsonString(url);
+//        String data = HttpUtil.getJsonString(url);
+        String data = OkHttpUtil.getString(url);
         if (data == null) {
-            Toast.makeText(activity, "", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
         Log.d(TAG, "onCreate: " + data);
 
@@ -177,7 +181,7 @@ public class NewsGroupFragment extends Fragment {
         }.getType();
 
         NewsGroup newsGroup = gson.fromJson(data, type);
-        Log.d(TAG, "parseNewsGroupJsonString: " + newsGroup.getMessage());
+        Log.d(TAG, "parseNewsGroup: " + newsGroup.getMessage());
         List<NewsGroup.DataBean> data1 = (List<NewsGroup.DataBean>) newsGroup.getData();
         for (NewsGroup.DataBean dataBean : data1) {
             String group = dataBean.getGroup();
@@ -189,6 +193,7 @@ public class NewsGroupFragment extends Fragment {
                 subids.add(subgrpBean.getSubid());
             }
         }
+        return true;
 
     }
 }

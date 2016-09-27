@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
+import com.feicui.edu.highpart.adapter.LoginLogAdapter;
 import com.feicui.edu.highpart.bean.BaseEntity;
 import com.feicui.edu.highpart.bean.LoginLog;
 import com.feicui.edu.highpart.bean.User;
@@ -67,24 +67,18 @@ public class UserInfoFragment extends Fragment {
     TextView name;
     @Bind(R.id.integral)
     TextView integral;
-    @Bind(R.id.account_phone_icon)
-    TextView accountPhoneIcon;
     @Bind(R.id.comment_count)
     TextView commentCount;
-    @Bind(R.id.acount_phone_line)
-    View acountPhoneLine;
-    @Bind(R.id.login_log)
-    TextView loginLog;
+
     @Bind(R.id.list)
     ListView list;
     @Bind(R.id.btn_exit)
     Button btnExit;
-    @Bind(R.id.layout)
-    LinearLayout layout;
     private Context context;
     @Bind(R.id.icon)
     CircleImageView icon;
     private PopupWindow window;
+    private MainActivity activity;
 
     @OnClick({R.id.icon, R.id.btn_exit})
     public void click(View view) {
@@ -93,7 +87,10 @@ public class UserInfoFragment extends Fragment {
                 showPopupWindow();
                 break;
             case R.id.btn_exit:
-
+                //清空账户信息
+                SharedPreferenceUtil.saveAccount(context,null,null);
+                activity.loadUserInfo();
+                toolbar.performClick();
                 break;
         }
     }
@@ -151,10 +148,12 @@ public class UserInfoFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data==null) {
+            //防止空指针出现
             return;
         }
-        GetPictureUtil.onActivityResult(requestCode, data, this);
+
         if (resultCode == Activity.RESULT_OK) {
+            GetPictureUtil.onActivityResult(requestCode, data, this);
             String path = GetPictureUtil.getFilePathString(getActivity());
 //            if (requestCode==REQUEST_PICK) {
 //                Uri data1 = data.getData();
@@ -162,12 +161,12 @@ public class UserInfoFragment extends Fragment {
 //            } else if (requestCode == REQUEST_CAMERA) {
 //                Bundle extras = data.getExtras();
 //            }
-            Glide.with(context)
-                    .load(path)//可以加载本地，也可以下载网络
-                    .centerCrop()//对bitmap像素缩放
-                    .placeholder(R.drawable.a9)//默认图片
-                    .crossFade()//动画效果
-                    .into(icon);//把下载的图片放到imageview中
+//            Glide.with(context)
+//                    .load(path)//可以加载本地，也可以下载网络
+//                    .centerCrop()//对bitmap像素缩放
+//                    .placeholder(R.drawable.a9)//默认图片
+//                    .crossFade()//动画效果
+//                    .into(icon);//把下载的图片放到imageview中
             //上传图片到服务器 user_image?token=用户令牌& portrait =头像
             File file = new File(path);
             new UploadFileTask(file).execute(Const.URL_USER_IMAGE);
@@ -204,10 +203,10 @@ public class UserInfoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //当activity创建的时候，回调
         if (getActivity() instanceof MainActivity) {
-            final MainActivity activity = (MainActivity) getActivity();
-            activity.setSupportActionBar(toolbar);
-            activity.backToMainActivity(toolbar);
-            activity.loadUserInfo();
+            activity = (MainActivity) getActivity();
+            activity.setSupportActionBar(toolbar);//设置支持toolbar
+            activity.backToMainActivity(toolbar);//给toolbar设置点击事件
+//            activity.loadUserInfo();
         }
     }
 
@@ -254,19 +253,13 @@ public class UserInfoFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-//            //解析返回字符串
-//            BaseEntity baseEntity = parseUserInfo(s);
-//            if (baseEntity == null) {
-//                return;
-//            }
-//            if (baseEntity.getStatus().equals("0")) {
-//                //成功 ，把数据设置到view中
-//                setDataToView(baseEntity);
-//            } else {
-//                //失败
-//                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
-//            }
+            if (s != null && s.contains("OK")) {
+                loadUserInfo();//成功后，重新加载用户数据
+                Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();
+            }
+
 
         }
     }
@@ -310,10 +303,15 @@ public class UserInfoFragment extends Fragment {
         User user = (User) baseEntity.getData();
         String portrait = user.getPortrait();
         name.setText(user.getUid());
+        integral.setText("积分："+user.getIntegration());
+        commentCount.setText(user.getComnum()+"");
         Glide.with(this).load(portrait)
         .centerCrop().into(icon);
 //        icon.setImageResource(R.drawable.a9);
         List<LoginLog> loginlog = user.getLoginlog();
+        LoginLogAdapter adapter = new LoginLogAdapter(context);
+        adapter.appendData(loginlog,true);
+        list.setAdapter(adapter);
 
     }
 
