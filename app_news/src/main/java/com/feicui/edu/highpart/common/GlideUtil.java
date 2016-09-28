@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 
@@ -24,6 +23,7 @@ public class GlideUtil {
        
         Glide.with(context)
                 .load(url)
+                .centerCrop()/*.animate()*/
                 .into(imageView);
     }
 }

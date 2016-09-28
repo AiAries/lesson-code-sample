@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.BigNews;
-import com.feicui.edu.highpart.common.GlideUtil;
 
 import java.util.List;
 
@@ -43,7 +43,10 @@ public class BigNewsRecyclerAdapter extends RecyclerView.Adapter<BigNewsRecycler
     public void onBindViewHolder(MyViewHolder holder, int position) {
         //给itemView绑定数据
         BigNews bigNews = bigNewses.get(position);
-        GlideUtil.setImg(context,bigNews.getImage(),holder.iv);
+        Glide.with(context)
+                .load(bigNews.getImage()).centerCrop()
+                .animate(R.anim.my_scale).into(holder.iv);
+
         holder.tvIntro.setText(bigNews.getIntroduct());
     }
 

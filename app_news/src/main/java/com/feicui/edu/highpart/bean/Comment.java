@@ -7,6 +7,9 @@ public class Comment {
     private String stamp;//“stamp”:评论时间
     private String content;//“content":评论内容
 
+    public Comment() {
+    }
+
     public Comment(int cid, String uid, String portrait, String stamp, String content) {
         this.cid = cid;
         this.uid = uid;

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.NewsGroup;
@@ -124,6 +125,15 @@ public class NewsGroupFragment extends Fragment {
         int itemId = item.getItemId();
         if (itemId == R.id.menu_share) {
             Toast.makeText(activity, item.getTitle(), Toast.LENGTH_SHORT).show();
+        }else if (itemId == R.id.menu_clear) {
+            Glide.get(getContext()).clearMemory();//在主线做
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    Glide.get(getContext()).clearDiskCache();//在子线程
+                }
+            }.start();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -94,10 +94,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 //            }
 //        });
 //        task.execute(iconPath);
-
         holder.tv1.setText(news.getTitle());
         holder.tv2.setText(news.getSummary());
-
     }
 
     class MyViewHold extends RecyclerView.ViewHolder {

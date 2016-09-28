@@ -15,7 +15,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.feicui.edu.highpart.bean.BaseEntity;
+import com.feicui.edu.highpart.bean.Comment;
 import com.feicui.edu.highpart.bean.News;
+import com.feicui.edu.highpart.biz.LocalCommentDBManager;
+import com.feicui.edu.highpart.biz.LocalNewsDBManager;
+import com.feicui.edu.highpart.biz.LocalNewsSQLiteOP;
 import com.feicui.edu.highpart.common.CommonUtil;
 import com.feicui.edu.highpart.common.Const;
 import com.feicui.edu.highpart.common.OkHttpUtil;
@@ -99,6 +103,24 @@ public class WebViewActivity extends AppCompatActivity {
             Intent intent = new Intent(WebViewActivity.this, ShowCommentActivity.class);
             intent.putExtra("news", news);
             startActivity(intent);
+        }else if (itemId == R.id.menu_favorite) {
+            //本地收藏，存到sqlite
+            MyApplication application = (MyApplication) getApplication();
+            LocalNewsSQLiteOP localNewsSQLiteOP = application.localNewsSQLiteOP;
+            String msg;
+            if (LocalNewsDBManager.isExistNews(localNewsSQLiteOP, news.getNid())) {
+                msg = "已收藏";
+            } else {
+                long insert = LocalNewsDBManager.insert(localNewsSQLiteOP, news);
+                if (insert > 0) {
+                    msg = "收藏成功";
+                } else {
+                    msg  = "收藏失败";
+                }
+            }
+            Toast.makeText(WebViewActivity.this,msg , Toast.LENGTH_SHORT).show();
+        }else if (itemId == R.id.menu_share) {
+           //TODO 分享
         }
         return super.onOptionsItemSelected(item);
     }
@@ -167,9 +189,14 @@ public class WebViewActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if (s != null) {
+                Comment comment = new Comment();//自己制造数据
+                comment.setContent(et_comment.getText().toString());
+                comment.setStamp(CommonUtil.getDate());//评论的时间
+                comment.setPortrait("file:///assets/a7.jpg");
+                LocalCommentDBManager.insert(WebViewActivity.this, comment);
+                Toast.makeText(WebViewActivity.this, s, Toast.LENGTH_SHORT).show();
                 wbv.requestFocus();//获取焦点
                 et_comment.setText("");//清空评论
-                Toast.makeText(WebViewActivity.this, s, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(WebViewActivity.this, s, Toast.LENGTH_SHORT).show();
             }

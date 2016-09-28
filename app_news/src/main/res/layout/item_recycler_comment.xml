@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_header"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/a2" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_time"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:text="2014-04-08" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这里是评论内容啊啊啊啊啊啊啊啊啊呀啊啊呀"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+</LinearLayout>
