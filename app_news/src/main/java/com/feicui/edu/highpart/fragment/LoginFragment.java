@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.feicui.edu.highpart.MainActivity;
 import com.feicui.edu.highpart.R;
 import com.feicui.edu.highpart.bean.BaseEntity;
@@ -21,15 +20,22 @@ import com.feicui.edu.highpart.common.CommonUtil;
 import com.feicui.edu.highpart.common.Const;
 import com.feicui.edu.highpart.common.SharedPreferenceUtil;
 import com.feicui.edu.highpart.common.SystemUtils;
-import com.feicui.edu.highpart.common.UrlComposeUtil;
 import com.feicui.edu.highpart.exception.URLErrorException;
+import com.feicui.edu.highpart.retrofit.LoginService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.feicui.edu.highpart.R.id.register;
 
 /**
  * Created by Administrator on 2016/9/13 0013.
@@ -58,7 +64,7 @@ public class LoginFragment extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         final EditText et_username = (EditText) view.findViewById(R.id.et_username);
         context = getContext();
-        view.findViewById(R.id.register).setOnClickListener(
+        view.findViewById(register).setOnClickListener(
 
                 new View.OnClickListener() {
                     @Override
@@ -98,18 +104,62 @@ public class LoginFragment extends Fragment {
                 });
         return view;
     }
-    private void login(String username, String pwd) {
+    private void login(final String username, final String pwd) {
         Map<String, String> p = new HashMap<>();
         //TODO 对用户名，密码，邮箱进行本地校验
-//        * http://118.244.212.82:9094//newsClient/login?uid=admin&pwd=admin&
+//        * http://118.244.212.82:9094//newsClient/user_login?uid=admin&pwd=admin&
 //        * imei=abc&ver=1&device=1
         p.put("uid", username);
         p.put("pwd", pwd);
         p.put("imei", SystemUtils.getIMEI(context));
         p.put("ver", CommonUtil.getVersionCode(context) + "");
         p.put("device", Const.PHONE);
-        String urlPath = UrlComposeUtil.getUrlPath(Const.URL_LOGIN, p);
-        new LoginTask(username,pwd).execute(urlPath);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(
+"http://118.244.212.82:9092/newsClient/user_login?uid=get&pwd=get&imei=1&ver=1&device=1"
+                ).addConverterFactory(GsonConverterFactory.create())
+                .build();
+        LoginService service = retrofit.create(LoginService.class);
+        Call<BaseEntity<Register>> call = service.login(/*p*/);
+        call.enqueue(new Callback<BaseEntity<Register>>()
+        {
+            @Override
+            public void onResponse(Call<BaseEntity<Register>> call, Response<BaseEntity<Register>> response)
+            {
+                boolean successful = response.isSuccessful();
+                if (!successful)
+                {
+                    Toast.makeText(getContext(), "failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                BaseEntity<Register> entity = response.body();
+                Register loginInfo = entity.getData();
+                String status = entity.getStatus();
+                if ("0".equals(status)) {
+
+                    if (loginInfo.getResult().equals("0")) {
+                        //登入成功,保存token值
+                        SharedPreferenceUtil.saveToken(context,loginInfo.getToken());
+                        //保存用户名和密码
+                        SharedPreferenceUtil.saveAccount(context,username,pwd);
+                        getFragmentManager().beginTransaction().replace(R.id.container,
+                                new UserInfoFragment()
+                        ).commit();
+                    }
+                    Toast.makeText(context, loginInfo.getExplain(), Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(context, entity.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseEntity<Register>> call, Throwable t)
+            {
+
+            }
+        });
+//        String urlPath = UrlComposeUtil.getUrlPath(Const.URL_LOGIN, p);
+//        new LoginTask(username,pwd).execute(urlPath);
     }
 
     class LoginTask extends AsyncTask<String, Void, String> {

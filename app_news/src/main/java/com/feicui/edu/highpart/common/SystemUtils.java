@@ -19,6 +19,10 @@ public class SystemUtils
     private String position;
 
     private SystemUtils(Context context) {
+        if (context==null)
+        {
+            return;
+        }
         telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         locationManager=(LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -37,6 +41,10 @@ public class SystemUtils
     }
     /**判断网络是否连接*/
     public boolean isNetConn() {
+        if (connManager==null)
+        {
+            return false;
+        }
         NetworkInfo info = connManager.getActiveNetworkInfo();
         if (info != null && info.isConnected()) {
             return true;

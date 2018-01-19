@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Camera2Basic/Camera2Basic.iml" filepath="$PROJECT_DIR$/Camera2Basic/Camera2Basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/CircularReveal-master/CircularReveal-master.iml" filepath="$PROJECT_DIR$/CircularReveal-master/CircularReveal-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/activity_manager_demo/activity_manager_demo.iml" filepath="$PROJECT_DIR$/activity_manager_demo/activity_manager_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aidl_client/aidl_client.iml" filepath="$PROJECT_DIR$/aidl_client/aidl_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aidl_service/aidl_service.iml" filepath="$PROJECT_DIR$/aidl_service/aidl_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app1607/app1607.iml" filepath="$PROJECT_DIR$/app1607/app1607.iml" />
       <module fileurl="file://$PROJECT_DIR$/app_login/app_login.iml" filepath="$PROJECT_DIR$/app_login/app_login.iml" />
@@ -29,6 +31,7 @@
       <module fileurl="file://$PROJECT_DIR$/package_manager_demo/package_manager_demo.iml" filepath="$PROJECT_DIR$/package_manager_demo/package_manager_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pie_chart/pie_chart.iml" filepath="$PROJECT_DIR$/pie_chart/pie_chart.iml" />
       <module fileurl="file://$PROJECT_DIR$/readdbdata/readdbdata.iml" filepath="$PROJECT_DIR$/readdbdata/readdbdata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rychat/rychat.iml" filepath="$PROJECT_DIR$/rychat/rychat.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui_thread_and_subthread/ui_thread_and_subthread.iml" filepath="$PROJECT_DIR$/ui_thread_and_subthread/ui_thread_and_subthread.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewanimationdemo/viewanimationdemo.iml" filepath="$PROJECT_DIR$/viewanimationdemo/viewanimationdemo.iml" />

@@ -70,7 +70,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         //异步下载网络图片
         Glide.with(context)
                 .load(iconPath)//可以加载本地，也可以下载网络
-                .centerCrop()//对bitmap像素缩放
+                .centerCrop()//
                 .placeholder(R.drawable.a3)//默认图片
                 .crossFade()//动画效果
                 .into(holder.imageView);//把下载的图片放到imageview中

@@ -2,6 +2,7 @@ package com.feicui.edu.highpart.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by Administrator on 2016/9/20 0020.
@@ -16,6 +17,16 @@ public class SharedPreferenceUtil {
     public static String getToken(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         return preferences.getString("token","");
+    }
+
+    /*
+    测试可变参数的使用
+     */
+    public void testMultiParam(String ...param){
+        int len = param.length;
+        for (int i = 0; i < len; i++) {
+
+        }
     }
 
     public static void saveAccount(Context context, String username,String pwd) {

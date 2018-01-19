@@ -4,7 +4,7 @@ package com.feicui.edu.highpart.common;
  * Created by Administrator on 2016/9/13 0013.
  */
 public class Const {
-    private static final String URL = "http://118.244.212.82:9092/newsClient/";
+    public static final String URL = "http://118.244.212.82:9092/newsClient/";
     public static final String PHONE = "0";//表示从手机端登入
     public static final int WEB = 1;//表示从网页登入
     //新闻的请求路径

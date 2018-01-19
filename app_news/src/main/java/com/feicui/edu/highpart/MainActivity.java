@@ -1,7 +1,5 @@
 package com.feicui.edu.highpart;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,31 +14,19 @@ import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.feicui.edu.highpart.asyntask.HttpUtil;
 import com.feicui.edu.highpart.bean.BaseEntity;
-import com.feicui.edu.highpart.bean.NewsGroup;
 import com.feicui.edu.highpart.bean.User;
 import com.feicui.edu.highpart.biz.UserManager;
-import com.feicui.edu.highpart.common.CommonUtil;
-import com.feicui.edu.highpart.common.Const;
-import com.feicui.edu.highpart.common.SharedPreferenceUtil;
-import com.feicui.edu.highpart.common.SystemUtils;
-import com.feicui.edu.highpart.common.UrlComposeUtil;
+import com.feicui.edu.highpart.common.*;
 import com.feicui.edu.highpart.exception.URLErrorException;
-import com.feicui.edu.highpart.fragment.CommentFragment;
-import com.feicui.edu.highpart.fragment.FavoriteFragment;
-import com.feicui.edu.highpart.fragment.LocalFragment;
-import com.feicui.edu.highpart.fragment.LoginFragment;
-import com.feicui.edu.highpart.fragment.NewsGroupFragment;
-import com.feicui.edu.highpart.fragment.PicFragment;
-import com.feicui.edu.highpart.fragment.UserInfoFragment;
+import com.feicui.edu.highpart.fragment.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
+import de.hdodenhof.circleimageview.CircleImageView;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -49,10 +35,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
+        //通过代码动态的给navigation view 添加头部视图
         View view = View.inflate(this, R.layout.drawer_header, null);
         mNavigationView.addHeaderView(view);
 
@@ -273,19 +256,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public static void saveSharedSetting(Context ctx, String settingName, String settingValue) {
-        SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(settingName, settingValue);
-        editor.apply();
-    }
-
-    public static String readSharedSetting(Context ctx, String settingName, String defaultValue) {
-        SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
-        return sharedPref.getString(settingName, defaultValue);
-    }
-
     public void pullParseAssetXmlFile() {
         //解析assets目录的xml文件
         XmlPullParser xmlPullParser = Xml.newPullParser();
@@ -371,75 +341,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    //解析json数据
-    public void parseNewsGroupJsonString() {
-        String url = "http://192.168.2.35:8080/newsClient/news_sort?ver=1&imei=1";
-        String data = HttpUtil.getJsonString(url);
-        if (data == null) {
-            Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Log.d(TAG, "onCreate: " + data);
-
-        Gson gson = new Gson();
-        Type type = new TypeToken<NewsGroup<List<NewsGroup.DataBean<List<NewsGroup.DataBean.SubgrpBean>>>>>() {
-        }.getType();
-
-        NewsGroup newsGroup = gson.fromJson(data, type);
-        Log.d(TAG, "parseNewsGroup: " + newsGroup.getMessage());
-        List<NewsGroup.DataBean> data1 = (List<NewsGroup.DataBean>) newsGroup.getData();
-        for (NewsGroup.DataBean dataBean : data1) {
-            String group = dataBean.getGroup();
-            Log.d(TAG, "parseNewsGroup: " + group);
-            List<NewsGroup.DataBean.SubgrpBean> subgrp = (List<NewsGroup.DataBean.SubgrpBean>) dataBean.getSubgrp();
-            for (NewsGroup.DataBean.SubgrpBean subgrpBean : subgrp) {
-                //Log.d(TAG, "parseNewsGroup: "+subgrpBean.getSubgroup());
-            }
-        }
-
-
-       /* //解析数据 json
-        try {
-            JSONObject j = new JSONObject(data);
-            NewsGroup ng = new NewsGroup();
-
-            String message = j.getString("message");
-            int status = j.getInt("status");
-
-            ng.setMessage(message);
-            ng.setStatus(status);
-            Log.d(TAG, "message: " + message + "status:" + status);
-
-            JSONArray array = j.getJSONArray("data");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = array.getJSONObject(i);
-                int gid = o.getInt("gid");
-                String group = o.getString("group");
-                NewsGroup.DataBean dataBean = new NewsGroup.DataBean();
-                dataBean.setGid(gid);
-                dataBean.setGroup(group);
-                Log.d(TAG, "gid: " + gid + "group:" + group);
-                JSONArray array1 = o.getJSONArray("subgrp");
-                for (int k = 0; k < array1.length(); k++) {
-
-                    JSONObject o1 = array1.getJSONObject(k);
-                    int subid = o1.getInt("subid");
-                    String subgroup = o1.getString("subgroup");
-                    Log.d(TAG, "subid: " + subid + "subgroup:" + subgroup);
-                    NewsGroup.DataBean.SubgrpBean bean = new NewsGroup.DataBean.SubgrpBean();
-                    bean.setSubgroup(subgroup);
-                    bean.setSubid(subid);
-                    dataBean.getSubgrp().add(bean);
-                }
-                ng.getData().add(dataBean);
-            }
-
-        } catch (JSONException e) {
-            Log.d(TAG, "run: json 字符串数据格式有问题");
-        }*/
-    }
-
 
 }
 

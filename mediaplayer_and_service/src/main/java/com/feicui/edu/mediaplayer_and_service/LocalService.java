@@ -30,6 +30,7 @@ public class LocalService extends Service {
         LocalService getService() {
             return LocalService.this;
         }
+
     }
     @Override
     public void onCreate() {
