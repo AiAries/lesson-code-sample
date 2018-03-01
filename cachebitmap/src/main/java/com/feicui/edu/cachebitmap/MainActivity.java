@@ -1,3 +1,4 @@
+/*
 package com.feicui.edu.cachebitmap;
 
 import android.content.Context;
@@ -26,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Bitmap> datas;
     int[] pics = new int[]{
-            R.mipmap.a0, R.mipmap.a1, R.mipmap.a2, R.mipmap.a3, R.mipmap.a4,
-            R.mipmap.a5, R.mipmap.a6, R.mipmap.a7, R.mipmap.a8, R.mipmap.a9,
-            R.mipmap.a10, R.mipmap.a11, R.mipmap.a12, R.mipmap.a13, R.mipmap.a14,
-            R.mipmap.a15, R.mipmap.a16, R.mipmap.a17, R.mipmap.a18, R.mipmap.a19,
-            R.mipmap.a20, R.mipmap.a21, R.mipmap.a22, R.mipmap.a23, R.mipmap.a24,R.mipmap.a25,
+//            R.mipmap.a0, R.mipmap.a1, R.mipmap.a2, R.mipmap.a3, R.mipmap.a4,
+//            R.mipmap.a5, R.mipmap.a6, R.mipmap.a7, R.mipmap.a8, R.mipmap.a9,
+//            R.mipmap.a10, R.mipmap.a11, R.mipmap.a12, R.mipmap.a13, R.mipmap.a14,
+//            R.mipmap.a15, R.mipmap.a16, R.mipmap.a17, R.mipmap.a18, R.mipmap.a19,
+//            R.mipmap.a20, R.mipmap.a21, R.mipmap.a22, R.mipmap.a23, R.mipmap.a24,R.mipmap.a25,
     };
     private LayoutInflater inflater;
     private long totalMemory;
@@ -109,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.item_iamge, null);
             ImageView iv = (ImageView) view.findViewById(R.id.iv);
 
-           /* //先判断缓冲中是否有图片
+           */
+/* //先判断缓冲中是否有图片
             Bitmap bitmap = lruCache.get(pics[position]);
 //            Bitmap bitmap = getBitmapFromLruCache(pics[position]);
             if (bitmap == null) {
@@ -121,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "来源于网络", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(MainActivity.this, "来源于缓存", Toast.LENGTH_SHORT).show();
-            }*/
+            }*//*
+
 
             Bitmap bitmap = null;
             //首先从sdcard读取图片，如果没有就从网上下载
@@ -159,3 +162,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+*/
