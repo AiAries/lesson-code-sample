@@ -27,4 +27,7 @@
         android:id="@+id/button"
         android:text="画圆弧"
         />
+    <com.feicui.edu.pie_chart.BubbleView
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
 </LinearLayout>
